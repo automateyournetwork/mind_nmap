@@ -1,4 +1,7 @@
 # MindMap Introduction
+
+![logo](images/logo.jpg)
+
 This script uses a number of different genie parses to create a formated markdown file and rendered HTML file of a given core-distribution-access Cisco topology.
 # Getting Started
 1.	We recommend creating a python virtual environment to run this utility
@@ -124,8 +127,6 @@ $ pyats run job MindMap_job.py --testbed-file ../testbeds/testbed_MindMap.yml
 The script will create one Layer 2 network map under /MindMaps/Devices/MindMap.md.
 
 To view the formatted output as a markmap please install the MarkMap extension for VS Code or the files can be view externally by viewng the html versions.
-
-![logo](images/logo.jpg)
 
 ![L2 Map](images/L2_Map.png)
 
