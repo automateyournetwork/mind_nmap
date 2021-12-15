@@ -1,0 +1,10 @@
+## [{{inventory_hostname}}](Devices/{{inventory_hostname}}_MindMap.html)
+{% for item in neighbors -%}
+{%   if device_testbed[item] is defined -%}
+{%     if device_testbed[item].role != 'core' -%}
+### [{{item}}](Devices/{{item}}_MindMap.html)
+{%     endif -%}
+{%   else -%}
+### [{{item}}](Devices/{{item}}_MindMap.html)
+{%   endif -%}  
+{% endfor -%}

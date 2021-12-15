@@ -1,0 +1,341 @@
+{# DEVICE HARDWARE INFORMATION #}
+# {{inventory_hostname}}
+##  Device Information
+{% if device_os != 'nxos' %}
+### Serial number: {{sh_version_parsed.version.chassis_sn}}
+### Device Type: {{sh_version_parsed.version.chassis}}
+### Version: {{sh_version_parsed.version.version}}
+### Operating System: {{sh_version_parsed.version.os}}
+{%-   if sh_version_parsed.version.switch_num is defined %}
+### Switches
+{%-     for num in sh_version_parsed.version.switch_num %}
+#### {{num}}
+##### Serial number: {{sh_version_parsed.version.switch_num[num].mb_sn}}
+##### MAC Address: {{sh_version_parsed.version.switch_num[num].mac_address}}
+{%-     endfor %}
+{%-   endif %}
+## Interface Counts
+{%-   if sh_version_parsed.version.number_of_intfs['Ethernet'] is defined %}
+### Eth ints: {{sh_version_parsed.version.number_of_intfs['Ethernet']}}
+{%-   endif %}
+{%-   if sh_version_parsed.version.number_of_intfs['FastEthernet'] is defined %}
+### Fa ints: {{sh_version_parsed.version.number_of_intfs['FastEthernet']}}
+{%-   endif %}
+{%-   if sh_version_parsed.version.number_of_intfs['Forty Gigabit Ethernet'] is defined %}
+### Fo ints: {{sh_version_parsed.version.number_of_intfs['Forty Gigabit Ethernet']}}
+{%-   endif %}
+{%-   if sh_version_parsed.version.number_of_intfs['Gigabit Ethernet'] is defined %}
+### Gi ints: {{sh_version_parsed.version.number_of_intfs['Gigabit Ethernet']}}
+{%-   endif %}
+{%-   if sh_version_parsed.version.number_of_intfs['2.5 Gigabit Ethernet'] is defined %}
+### 2.5 ints: {{sh_version_parsed.version.number_of_intfs['2.5 Gigabit Ethernet']}}
+{%-   endif %}
+{%-   if sh_version_parsed.version.number_of_intfs['Ten Gigabit Ethernet'] is defined %}
+### Te ints: {{sh_version_parsed.version.number_of_intfs['Ten Gigabit Ethernet']}}
+{%-   endif %}
+{%-   if sh_version_parsed.version.number_of_intfs['TwentyFive Gigabit Ethernet'] is defined %}
+### Tw ints: {{sh_version_parsed.version.number_of_intfs['TwentyFive Gigabit Ethernet']}}
+{%-   endif %}
+{%-   if sh_version_parsed.version.number_of_intfs['Virtual Ethernet'] is defined %}
+### Virtual ints: {{sh_version_parsed.version.number_of_intfs['Virtual Ethernet']}}
+{%-   endif %}
+{%- endif %}
+{%- if device_os == 'nxos' %}
+### Serial number: {{sh_version_parsed.platform.hardware.processor_board_id}}
+### Device Type: {{sh_version_parsed.platform.hardware.chassis}}
+### Version: {{sh_version_parsed.platform.software.system_version}}
+### Operating System: {{sh_version_parsed.platform.os}}
+{%- endif %}
+
+{#- DEVICE HARDWARE INVENTORY#}
+## Device Inventory
+{%- if  device_os != 'nxos' %}
+{%-   if '4500' in sh_version_parsed.version.chassis %}
+{%-     for item in sh_inventory_parsed.main %}
+### {{item}}
+{%-       for name in sh_inventory_parsed.main[item] %}
+#### {{sh_inventory_parsed.main[item][name].descr}}
+#### {{sh_inventory_parsed.main[item][name].sn}}
+{%-       endfor %}
+{%-     endfor %}
+{%-   endif %}
+{%-   if '650' in sh_version_parsed.version.chassis %}
+{%-     for item in sh_inventory_parsed.main.chassis %}
+### {{item}}
+#### {{sh_inventory_parsed.main.chassis[item].name}}
+#### {{sh_inventory_parsed.main.chassis[item].descr}}
+#### {{sh_inventory_parsed.main.chassis[item].sn}}
+{%-     endfor %}
+{%-   endif %}
+{%-   if '9300' or '3850' or '2960' in sh_version_parsed.version.chassis %}
+{%-     for item in sh_inventory_parsed.index %}
+### {{sh_inventory_parsed.index[item].name}}
+#### {{sh_inventory_parsed.index[item].descr}}
+#### {{sh_inventory_parsed.index[item].sn}}
+{%-     endfor %}
+{%-   endif %}
+{%-   if '3750' in sh_version_parsed.version.chassis %}
+{%-     for switch in sh_inventory_parsed.slot %}
+{%-       for name in sh_inventory_parsed.slot[switch].rp %}
+{%-         for subslot in sh_inventory_parsed.slot[switch].rp[name].subslot %}
+{%-           for item in sh_inventory_parsed.slot[switch].rp[name].subslot[subslot] %}
+### {{item}}
+#### {{sh_inventory_parsed.slot[switch].rp[name].subslot[subslot][item].name}}
+#### {{sh_inventory_parsed.slot[switch].rp[name].subslot[subslot][item].descr}}
+#### {{sh_inventory_parsed.slot[switch].rp[name].subslot[subslot][item].sn}}
+{%-           endfor %}
+{%-         endfor %}
+{%-       endfor %}
+{%-     endfor %}
+{%-   endif %}
+{%- endif %}
+{%- if  device_os == 'nxos' %}
+{%-   for name in sh_inventory_parsed.name %}
+### {{name}}
+#### {{sh_inventory_parsed.name[name].pid}}
+#### {{sh_inventory_parsed.name[name].description}}
+#### {{sh_inventory_parsed.name[name].serial_number}}
+{%-   endfor %}
+{%- endif %}
+{%- if 'nxos' in device_os %}
+{%-   for name in sh_inventory_parsed %}
+### {{name}}
+#### {{sh_inventory_parsed[name].pid}}
+#### {{sh_inventory_parsed[name].description}}
+#### {{sh_inventory_parsed[name].serial_number}}
+{%-   endfor %}
+{%- endif %}
+{#- VLANS #}
+## Vlans
+{%- for item in sh_vlan_parsed %}
+{%-   if sh_vlan_parsed[item].state != "unsupport" %}
+### {{item}} - {{sh_vlan_parsed[item].name}}
+#### {{sh_vlan_parsed[item].state}}
+{%-     if sh_vlan_parsed[item].interfaces is defined%}
+#### Interfaces
+{%-       for int in sh_vlan_parsed[item].interfaces %}
+##### {{int}}
+{%-       endfor %}
+{%-     endif %}
+{%-   endif %}
+{%- endfor %}
+{#- VRFs #}
+## VRF
+{%- if  device_os != 'nxos' %}
+{%-   for vrf in sh_vrf_parsed.vrf %}
+### {{vrf}}
+{%-   endfor%}
+{%- else %}
+{%-   for vrf in sh_vrf_parsed.vrfs %}
+### {{vrf}}
+#### {{sh_vrf_parsed.vrfs[vrf].vrf_id}}
+#### {{sh_vrf_parsed.vrfs[vrf].vrf_state}}
+{%-   endfor%}
+{% endif %}
+{#- NEIGHBORNG #}
+{#- CDP NEIGHBORING #}
+## neighbors
+{%- if sh_pc_sum_parsed['interfaces'] is defined %}
+### CDP
+{%-   for int in sh_pc_sum_parsed['interfaces'] %}
+{%-     if 'U' in sh_pc_sum_parsed['interfaces'][int].flags  %}
+#### {{int}}
+{%-       if 'S' in sh_pc_sum_parsed['interfaces'][int].flags%}
+##### Switched Port-channel
+##### **VLAN(s)**: {{sh_trunk_parsed.interface[int].vlans_allowed_on_trunk}}
+{%-       else %}
+##### Routed Port-channel
+{%-       endif%}
+##### **Local Interfaces**:
+{%-       for item in sh_pc_sum_parsed['interfaces'][int].members %} 
+###### {{item}} 
+{%-       endfor %}
+##### **Remote Interfaces** 
+{%-       for item in sh_cdp_neigh_det_parsed %}
+{%-         if sh_cdp_neigh_det_parsed[item].local_interface in sh_pc_sum_parsed['interfaces'][int].members | list %} 
+###### {{sh_cdp_neigh_det_parsed[item].port_id}}
+{%-         endif %}
+{%-       endfor %}
+{%-       for item in sh_cdp_neigh_det_parsed %}
+{%-         if sh_cdp_neigh_det_parsed[item].local_interface == sh_pc_sum_parsed['interfaces'][int].port_channel.port_channel_member_intfs | last %}
+{%-           for ip in sh_cdp_neigh_det_parsed[item].management_addresses %}
+##### **IP Address:**{{ip}}
+{%-           endfor %}
+##### ***{{sh_cdp_neigh_det_parsed[item].device_id}}***
+{%-         endif %}
+{%-       endfor %}
+{%-     endif %}
+{%-   endfor %}
+{%-   for item in sh_cdp_neigh_det_parsed %}
+{%-     if 'I' not in sh_cdp_neigh_det_parsed[item].capabilities %}
+#### {{sh_cdp_neigh_det_parsed[item].device_id}}
+##### **Platform**: {{sh_cdp_neigh_det_parsed[item].platform}}
+##### **Local Port**:{{sh_cdp_neigh_det_parsed[item].local_interface}}
+##### **Remote Port**:{{sh_cdp_neigh_det_parsed[item].port_id}}
+{%-     endif %}
+{%-   endfor %}
+{%- endif %}
+{#- LLDP NEIGHBORING #}
+{%- if sh_parse_lldp_detail['interfaces'] is defined %}
+### LLDP
+{%-   for int in sh_parse_lldp_detail['interfaces'] %}
+{%-     for port in sh_parse_lldp_detail['interfaces'][int].port_id %}
+{%-       for neighbor in sh_parse_lldp_detail['interfaces'][int].port_id[port].neighbors %}
+#### {{neighbor}}
+##### **Local Port**:{{port}}
+##### **Remote Port**:{{int}}
+##### **Capabilities**
+{%-         for item in sh_parse_lldp_detail['interfaces'][int].port_id[port].neighbors[neighbor].capabilities %}
+###### {{item}} - Enabled: {{sh_parse_lldp_detail['interfaces'][int].port_id[port].neighbors[neighbor].capabilities[item].enabled}}
+{%-         endfor %}
+{%-       endfor %}
+{%-     endfor %}
+{%-   endfor %}
+{%- endif %}
+{#- MAC ADDRESS-TABLE #}
+## MAC Addresses
+{%- for vlan in sh_mac_table_parsed.vlans %}
+### {{vlan}}
+{%-   for mac_address in sh_mac_table_parsed.vlans[vlan].mac_addresses %}
+#### {{mac_address}}
+{%-   endfor %}}
+{%- endfor %}}
+{#- ARP TABLE #}
+## ARP table
+{%- for int in sh_arp_parsed['interfaces'] %}
+### {{int}}
+{%-   for neighbor in sh_arp_parsed['interfaces'][int].ipv4.neighbors %}
+#### {{neighbor}}
+##### age: {{sh_arp_parsed['interfaces'][int].ipv4.neighbors[neighbor].age}}
+##### Link Layer Address: {{sh_arp_parsed['interfaces'][int].ipv4.neighbors[neighbor].link_layer_address}}
+{%-     if 'ios' or 'iosxe' in device_os %}
+##### protocol: {{sh_arp_parsed['interfaces'][int].ipv4.neighbors[neighbor].protocol}}
+{%-     elif 'nxos' in device_os %}
+##### origin: {{sh_arp_parsed['interfaces'][int].ipv4.neighbors[neighbor].origin}}
+{%-     endif %}
+{%-   endfor %}
+{%- endfor %}
+{#- SHOW INTERFACES #}
+## Interfaces
+### Key
+#### interface type
+##### MAC Address
+##### Operational Status
+##### Last Input
+##### Last Output
+### Port-Channels
+{%- if  device_os != 'nxos'  %}
+{%-   for int in sh_int_parsed %}
+{%-     if 'Port-channel' in int %}
+#### {{int}}
+##### {{sh_int_parsed[int].phys_address}}
+##### Enabled: {{sh_int_parsed[int].enabled}}
+##### {{sh_int_parsed[int].last_input}}
+##### {{sh_int_parsed[int].last_output}}
+{%-     endif %}
+{%-   endfor %}
+### Tunnels
+{%-   for int in sh_int_parsed %}
+{%-     if 'Tunnel' in int %}
+#### {{int}}
+##### {{sh_int_parsed[int].phys_address}}
+##### Enabled: {{sh_int_parsed[int].enabled}}
+##### {{sh_int_parsed[int].last_input}}
+##### {{sh_int_parsed[int].last_output}}
+{%-     endif %}
+{%-   endfor %}
+### Vlans
+{%-   for int in sh_int_parsed %}
+{%-     if 'Vlan' in int %}
+#### {{int}}
+##### {{sh_int_parsed[int].phys_address}}
+##### Enabled: {{sh_int_parsed[int].enabled}}
+##### {{sh_int_parsed[int].last_input}}
+##### {{sh_int_parsed[int].last_output}}
+{%-     endif %}
+{%-   endfor %}
+### Loopbacks
+{%-   for int in sh_int_parsed %}
+{%-     if 'Loopback' in int %}
+#### {{int}}
+##### {{sh_int_parsed[int].phys_address}}
+##### Enabled: {{sh_int_parsed[int].enabled}}
+##### {{sh_int_parsed[int].last_input}}
+##### {{sh_int_parsed[int].last_output}}
+{%-     endif %}
+{%-   endfor %}
+### Ethernet
+{%-   for int in sh_int_parsed %}
+{%-     if 'Ethernet' in int %}
+{%-       if 'Gigabit' not in int%}
+#### {{int}}
+##### {{sh_int_parsed[int].phys_address}}
+##### Enabled: {{sh_int_parsed[int].enabled}}
+##### {{sh_int_parsed[int].last_input}}
+##### {{sh_int_parsed[int].last_output}}
+{%-         endif %}
+{%-       endif %}
+{%-     endfor %}
+### FastEthernet
+{%-   for int in sh_int_parsed %}
+{%-     if 'FastEthernet' in int %}
+#### {{int}}
+##### {{sh_int_parsed[int].phys_address}}
+##### Enabled: {{sh_int_parsed[int].enabled}}
+##### {{sh_int_parsed[int].last_input}}
+##### {{sh_int_parsed[int].last_output}}
+{%-     endif %}
+{%-   endfor %}
+### GigabitEthernet
+{%-   for int in sh_int_parsed %}
+{%-     if 'GigabitEthernet' in int %}
+{%-       if 'Ten' or '2.5' or 'Twenty' or 'Forty' not in int%}
+#### {{int}}
+##### {{sh_int_parsed[int].phys_address}}
+##### Enabled: {{sh_int_parsed[int].enabled}}
+##### {{sh_int_parsed[int].last_input}}
+##### {{sh_int_parsed[int].last_output}}
+{%-       endif %}
+{%-     endif %}
+{%-   endfor %}
+### 2.5 GigabitEthernet
+{%-   for int in sh_int_parsed %}
+{%-     if '2.5GigabitEthernet' in int %}
+#### {{int}}
+##### {{sh_int_parsed[int].phys_address}}
+##### Enabled: {{sh_int_parsed[int].enabled}}
+##### {{sh_int_parsed[int].last_input}}
+##### {{sh_int_parsed[int].last_output}}
+{%-     endif %}
+{%-   endfor %}
+### Ten GigabitEthernet
+{%-   for int in sh_int_parsed %}
+{%-     if 'TenGigabitEthernet' in int %}
+#### {{int}}
+##### {{sh_int_parsed[int].phys_address}}
+##### Enabled: {{sh_int_parsed[int].enabled}}
+##### {{sh_int_parsed[int].last_input}}
+##### {{sh_int_parsed[int].last_output}}
+{%-     endif %}
+{%-   endfor %}
+### TwentyFive GigabitEthernet
+{%-   for int in sh_int_parsed %}
+{%-     if 'TwentyFiveGigabit Ethernet' in int %}
+#### {{int}}
+##### {{sh_int_parsed[int].phys_address}}
+##### Enabled: {{sh_int_parsed[int].enabled}}
+##### {{sh_int_parsed[int].last_input}}
+##### {{sh_int_parsed[int].last_output}}
+{%-     endif %}
+{%-   endfor %}
+### Forty GigabitEthernet
+{%-   for int in sh_int_parsed %}
+{%-     if 'FortyGigabitEthernet' in int %}
+#### {{int}}
+##### {{sh_int_parsed[int].phys_address}}
+##### Enabled: {{sh_int_parsed[int].enabled}}
+##### {{sh_int_parsed[int].last_input}}
+##### {{sh_int_parsed[int].last_output}}
+{%-     endif %}
+{%-   endfor %}
+{%- endif %}
