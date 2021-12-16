@@ -16,10 +16,27 @@
   height: 100vh;
 }
 </style>
-<script src="https://cdn.jsdelivr.net/npm/d3@5"></script><script src="https://cdn.jsdelivr.net/npm/markmap-lib@0.6.1/dist/view.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.2.0/dist/style.min.css">
 </head>
 <body>
 <svg id="mindmap"></svg>
-<script>markmap.markmap('svg#mindmap',{"t":"heading","d":1,"v":"<a href=\"Devices/Core_MindMap.html\" title=\"\" target=\"_blank\" rel=\"noopener noreferrer\">Core</a>","c":[{"t":"heading","d":2,"v":"<a href=\"Devices/Dist_MindMap.html\" title=\"\" target=\"_blank\" rel=\"noopener noreferrer\">Dist</a>","c":[{"t":"heading","d":3,"v":"<a href=\"Devices/Dist_MindMap.html\" title=\"\" target=\"_blank\" rel=\"noopener noreferrer\">Access</a>","c":[{"t":"heading","d":4,"v":"Cisco Phone"},{"t":"heading","d":4,"v":"Access Point"}]}]},{"t":"heading","d":2,"v":"Nexus Dist Switch 1","c":[{"t":"heading","d":3,"v":"Nexus Access Switch 1","c":[{"t":"heading","d":4,"v":"VM host"}]},{"t":"heading","d":3,"v":"Nexus Access Switch 2"}]},{"t":"heading","d":2,"v":"Catalyst Dist Switch 1","c":[{"t":"heading","d":3,"v":"Catalyst Access Switch 1"},{"t":"heading","d":3,"v":"Catalyst Access Switch 2"}]}]}).fit()</script>
+<script src="https://cdn.jsdelivr.net/npm/d3@6.7.0"></script><script src="https://cdn.jsdelivr.net/npm/markmap-view@0.2.7"></script><script src="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.2.0/dist/index.umd.min.js"></script><script>(r => {
+          setTimeout(r);
+        })(() => {
+  const {
+    markmap,
+    mm
+  } = window;
+  const toolbar = new markmap.Toolbar();
+  toolbar.attach(mm);
+  const el = toolbar.render();
+  el.setAttribute('style', 'position:absolute;bottom:20px;right:20px');
+  document.body.append(el);
+})</script><script>((getMarkmap, getOptions, data) => {
+        const {
+          Markmap
+        } = getMarkmap();
+        window.mm = Markmap.create('svg#mindmap', getOptions == null ? void 0 : getOptions(), data);
+      })(() => window.markmap,null,{"t":"heading","d":1,"p":{"lines":[0,1]},"v":"<a href=\"Devices/Core_MindMap.html\">Core</a>","c":[{"t":"heading","d":2,"p":{"lines":[1,2]},"v":"<a href=\"Devices/Dist_MindMap.html\">Dist</a>","c":[{"t":"heading","d":3,"p":{"lines":[2,3]},"v":"<a href=\"Devices/Dist_MindMap.html\">Access</a>","c":[{"t":"heading","d":4,"p":{"lines":[3,4]},"v":"Cisco Phone"},{"t":"heading","d":4,"p":{"lines":[4,5]},"v":"Access Point"}]}]},{"t":"heading","d":2,"p":{"lines":[5,6]},"v":"Nexus Dist Switch 1","c":[{"t":"heading","d":3,"p":{"lines":[6,7]},"v":"Nexus Access Switch 1","c":[{"t":"heading","d":4,"p":{"lines":[7,8]},"v":"VM host"}]},{"t":"heading","d":3,"p":{"lines":[8,9]},"v":"Nexus Access Switch 2"}]},{"t":"heading","d":2,"p":{"lines":[9,10]},"v":"Catalyst Dist Switch 1","c":[{"t":"heading","d":3,"p":{"lines":[10,11]},"v":"Catalyst Access Switch 1"},{"t":"heading","d":3,"p":{"lines":[11,12]},"v":"Catalyst Access Switch 2"}]}]})</script>
 </body>
 </html>
