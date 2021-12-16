@@ -143,16 +143,19 @@ class Collect_Information(aetest.Testcase):
                     ## create per device informational MindMap
                     formatted_device_map_template = env.get_template('formattedDeviceMap.j2')
                     
+                    if device.type == 'switch':
+                        self.parsed_show_vrf={}
+
                     if device.os == 'nxos':
-                        parsed_show_int='Parser Broken'  ### parser tested on Nexus 5k's, output was not formated
-                        parsed_show_interfaces_trunk='Parser unavailable' ### no show interface trunk command parser on Nexus devices
+                        self.parsed_show_int='Parser Broken'
+                        self.parsed_show_interfaces_trunk='Parser Broken'
 
                     print(device.os)
 
                     parsed_output_type = formatted_device_map_template.render(
                         inventory_hostname=device.alias,
                         device_os=device.os,
-                        sh_arp_parsed=self.parsed_show_arp,
+                        sh_arp_parsed=full_arp_list,
                         sh_cdp_neigh_det_parsed=self.parsed_show_cdp_neighbors_detail['index'],
                         sh_parse_lldp_detail=self.parsed_show_lldp_neighbors_detail,
                         sh_pc_sum_parsed=self.parsed_show_etherchannel_summary,
