@@ -120,6 +120,8 @@ we use the custom tag <B>role</b> in our testbed to help build the topology, ple
 
 # Create your Markmap
 ``` console
+$ cd mind_nmap
+$ cd MindMaps
 $ pyats run job MindMap_job.py --testbed-file ../testbeds/testbed_MindMap.yml
 ```
 
