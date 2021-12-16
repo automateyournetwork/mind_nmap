@@ -1,49 +1,52 @@
 devices:
-    dist-rtr01:
-      alias: 'dist-rtr01'
+    Core:
+      alias: 'Core'
       type: 'router'
-      os: 'iosxe'
+      os: 'ios'
       role: 'core'
-      platform: csr100v
+      platform: cat6500
       credentials:
         default:
-          username: cisco
-          password: cisco
+          username: admin
+          password: {{password}}
       connections:        
         cli:
           protocol: "ssh"
-          ip: "10.10.20.175"
+          ip: "192.168.1.1"
           arguments:
             connection_timeout: 360  
-    dist-sw01:
-     alias: 'dist-sw01'
-     type: 'switch'
-     os: 'nxos'
-     role: 'access'
-     platform: n9k
+    Dist:
+     alias: 'Dist'
+     type: 'router'
+     os: 'iosxe'
+     role: 'dist'
+     platform: cat4500
      credentials:
        default:
-         username: cisco
-         password: cisco
+         username: admin
+         password: {{password}}
      connections:        
        cli:
          protocol: "ssh"
-         ip: "10.10.20.177"
+         ip: "192.168.1.5"
          arguments:
-           connection_timeout: 360
-    dist-sw02:
-     alias: 'dist-sw02'
+           connection_timeout: 360        
+    Access:
+     alias: 'Access'
      type: 'switch'
-     os: 'nxos'
+     os: 'iosxe'
      role: 'access'
-     platform: n9k
+     platform: c9300
+     custom:
+       abstraction:
+         order: [os, platform]      
      credentials:
        default:
-         username: cisco
-         password: cisco
+         username: admin
+         password: {{password}}
      connections:        
        cli:
          protocol: "ssh"
-         ip: "10.10.20.178"
+         ip: "192.168.1.10"
          arguments:
-           connection_timeout: 360
+           connection_timeout: 360 

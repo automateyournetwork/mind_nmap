@@ -143,3 +143,55 @@ NOTE: the script has only been run on Cisco Catalyst and Nexus devices.
 https://developer.cisco.com/pyats/
 ## MarkMap:
 https://markmap.js.org/repl
+
+# Try It Yourself! 
+
+Using the Cisco DevNet CML Sandbox you can try it for yourself! 
+
+1) Visit https://devnetsandbox.cisco.com/RM/Topology
+
+2) Reserve the CML Sandbox
+
+![Reserve Sandbox](images/sandbox00.png)
+
+3) Update the <b>testbed_MindMap.yml</b> topology from the <b>testbed_CML_Sandbox_MindMap.yml</b> (Replace the contents) to match the Access Layer 
+
+testbed_MindMap.yml
+
+```yaml
+devices:
+    dist-sw01:
+     alias: 'dist-sw01'
+     type: 'switch'
+     os: 'nxos'
+     role: 'access'
+     platform: n9k
+     credentials:
+       default:
+         username: cisco
+         password: cisco
+     connections:        
+       cli:
+         protocol: "ssh"
+         ip: "10.10.20.177"
+         arguments:
+           connection_timeout: 360
+    dist-sw02:
+     alias: 'dist-sw02'
+     type: 'switch'
+     os: 'nxos'
+     role: 'access'
+     platform: n9k
+     credentials:
+       default:
+         username: cisco
+         password: cisco
+     connections:        
+       cli:
+         protocol: "ssh"
+         ip: "10.10.20.178"
+         arguments:
+           connection_timeout: 360
+```
+
+![Mind Map Access Layer](images/sandbox.png)

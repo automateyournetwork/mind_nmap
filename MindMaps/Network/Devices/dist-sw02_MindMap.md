@@ -224,15 +224,6 @@
 ### -
 #### 5254.0009.1bcb}}
 ## ARP table
-### GigabitEthernet1
-#### 10.10.20.175
-##### age: -
-##### Link Layer Address: 5254.0001.e9e4
-##### protocol: Internet
-#### 10.10.20.254
-##### age: 6
-##### Link Layer Address: 0050.56bf.f07b
-##### protocol: Internet
 ## Interfaces
 ### Key
 #### interface type
