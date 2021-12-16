@@ -1,4 +1,4 @@
-# MindMap Introduction
+# Mind nMap
 
 ![logo](images/logo.jpg)
 
