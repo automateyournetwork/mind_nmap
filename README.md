@@ -98,7 +98,7 @@ devices:
       alias: 'Access'
       type: 'router'
       os: 'iosxe'
-      role: dist
+      role: access
       platform: cat9300
       credentials:
         default:
