@@ -2,6 +2,8 @@
 
 ![logo](images/logo.jpg)
 
+[![published](https://static.production.devnetcloud.com/codeexchange/assets/images/devnet-published.svg)](https://developer.cisco.com/codeexchange/github/repo/automateyournetwork/mind_nmap)
+
 This script uses a number of different genie parses to create a formated markdown file and rendered HTML file of a given core-distribution-access Cisco topology.
 # Getting Started
 1.	We recommend creating a python virtual environment to run this utility
