@@ -107,8 +107,19 @@ class Collect_Information(aetest.Testcase):
             self.parsed_show_vlan = ParseShowCommandFunction.parse_show_command(steps, device, "show vlan")
 
             ### Show VRF
+            full_route_list={}
             if device.type != 'switch':
-                self.parsed_show_vrf = ParseShowCommandFunction.parse_show_command(steps, device, "show vrf")
+                if device.os == 'nxos':
+                    self.parsed_show_route = ParseShowCommandFunction.parse_show_command(steps, device, "show ip route")
+                    full_route_list = self.parsed_show_route['vrf']
+                else:
+                    self.parsed_show_vrf = ParseShowCommandFunction.parse_show_command(steps, device, "show vrf")
+                    self.parsed_show_route = ParseShowCommandFunction.parse_show_command(steps, device, "show ip route")
+                    full_route_list['default'] = self.parsed_show_route['vrf']
+                    for item in self.parsed_show_vrf['vrf']:
+                        if item != "mgmtVrf":
+                            self.parsed_show_route = ParseShowCommandFunction.parse_show_command(steps, device, f"show ip route vrf {item}")
+                            full_route_list[item] = self.parsed_show_route['vrf'][item]
 
             # ---------------------------------------
             # Create JSON, YAML, CSV, MD, HTML, HTML Mind Map files from the Parsed Data
@@ -144,7 +155,7 @@ class Collect_Information(aetest.Testcase):
                     formatted_device_map_template = env.get_template('formattedDeviceMap.j2')
                     
                     if device.type == 'switch':
-                        self.parsed_show_vrf={}
+                        self.parsed_show_vrf='No VRF'                        
 
                     if device.os == 'nxos':
                         self.parsed_show_int='Parser Broken'
@@ -165,7 +176,8 @@ class Collect_Information(aetest.Testcase):
                         sh_mac_table_parsed=self.parsed_show_mac_address_table['mac_table'],
                         sh_version_parsed=self.parsed_show_version,
                         sh_vlan_parsed=self.parsed_show_vlan['vlans'],
-                        sh_vrf_parsed=self.parsed_show_vrf                      
+                        sh_vrf_parsed=self.parsed_show_vrf,
+                        to_parse_routing = full_route_list                      
                         )
 
                     with open(f"Network/Devices/{ device.alias }_MindMap.md", "w") as fh:

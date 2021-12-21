@@ -2,7 +2,7 @@
 # dist-sw01
 ##  Device Information
 
-### Serial number: 9KAHNOFLB6R
+### Serial number: 9V7DG3YWIFC
 ### Device Type: Nexus9000 9000v
 ### Version: 9.2(4)
 ### Operating System: NX-OS
@@ -10,11 +10,11 @@
 ### Chassis
 #### N9K-9000v
 #### Nexus9000 9000v Chassis
-#### 9KAHNOFLB6R
+#### 9V7DG3YWIFC
 ### Slot 1
 #### N9K-9000v
 #### Nexus 9000v Ethernet Module
-#### 9KAHNOFLB6R
+#### 9V7DG3YWIFC
 ### Fan 1
 #### N9K-9000v-FAN
 #### Nexus9000 9000v Chassis Fan Module
@@ -192,38 +192,314 @@
 ##### Port-channel1
 ##### Ethernet1/1
 ##### Ethernet1/2
-## VRF
-
+## VRF / Address Family
+### default - ipv4
+#### Route: 172.16.101.0/24 
+##### Active: True 
+##### Metric: 0
+##### Route Preference: 0
+##### Source Protocol: direct
+##### M Best: 0
+##### U Best: 1
+##### Next Hop Index: 1
+###### Next Hop: 172.16.101.2
+###### Route Preference: 0 
+###### Source Protocol: direct
+###### Best Unicast Nexthop: True
+###### Metric: 0
+###### Updated: 00:08:23
+#### Route: 172.16.101.1/32 
+##### Active: True 
+##### Metric: 0
+##### Route Preference: 0
+##### Source Protocol: hsrp
+##### M Best: 0
+##### U Best: 1
+##### Next Hop Index: 1
+###### Next Hop: 172.16.101.1
+###### Route Preference: 0 
+###### Source Protocol: hsrp
+###### Best Unicast Nexthop: True
+###### Metric: 0
+###### Updated: 00:08:02
+#### Route: 172.16.101.2/32 
+##### Active: True 
+##### Metric: 0
+##### Route Preference: 0
+##### Source Protocol: local
+##### M Best: 0
+##### U Best: 1
+##### Next Hop Index: 1
+###### Next Hop: 172.16.101.2
+###### Route Preference: 0 
+###### Source Protocol: local
+###### Best Unicast Nexthop: True
+###### Metric: 0
+###### Updated: 00:08:23
+#### Route: 172.16.102.0/24 
+##### Active: True 
+##### Metric: 81
+##### Route Preference: 110
+##### Source Protocol: ospf
+##### M Best: 0
+##### U Best: 2
+##### Next Hop Index: 1
+###### Next Hop: 172.16.252.2
+###### Route Preference: 110 
+###### Source Protocol: ospf
+###### Best Unicast Nexthop: True
+###### Metric: 81
+###### Updated: 00:08:01
+##### Next Hop Index: 2
+###### Next Hop: 172.16.252.6
+###### Route Preference: 110 
+###### Source Protocol: ospf
+###### Best Unicast Nexthop: True
+###### Metric: 81
+###### Updated: 00:08:01
+#### Route: 172.16.252.0/30 
+##### Active: True 
+##### Metric: 0
+##### Route Preference: 0
+##### Source Protocol: direct
+##### M Best: 0
+##### U Best: 1
+##### Next Hop Index: 1
+###### Next Hop: 172.16.252.1
+###### Route Preference: 0 
+###### Source Protocol: direct
+###### Best Unicast Nexthop: True
+###### Metric: 0
+###### Updated: 00:08:25
+#### Route: 172.16.252.1/32 
+##### Active: True 
+##### Metric: 0
+##### Route Preference: 0
+##### Source Protocol: local
+##### M Best: 0
+##### U Best: 1
+##### Next Hop Index: 1
+###### Next Hop: 172.16.252.1
+###### Route Preference: 0 
+###### Source Protocol: local
+###### Best Unicast Nexthop: True
+###### Metric: 0
+###### Updated: 00:08:25
+#### Route: 172.16.252.4/30 
+##### Active: True 
+##### Metric: 0
+##### Route Preference: 0
+##### Source Protocol: direct
+##### M Best: 0
+##### U Best: 1
+##### Next Hop Index: 1
+###### Next Hop: 172.16.252.5
+###### Route Preference: 0 
+###### Source Protocol: direct
+###### Best Unicast Nexthop: True
+###### Metric: 0
+###### Updated: 00:08:25
+#### Route: 172.16.252.5/32 
+##### Active: True 
+##### Metric: 0
+##### Route Preference: 0
+##### Source Protocol: local
+##### M Best: 0
+##### U Best: 1
+##### Next Hop Index: 1
+###### Next Hop: 172.16.252.5
+###### Route Preference: 0 
+###### Source Protocol: local
+###### Best Unicast Nexthop: True
+###### Metric: 0
+###### Updated: 00:08:25
+#### Route: 172.16.252.8/30 
+##### Active: True 
+##### Metric: 41
+##### Route Preference: 110
+##### Source Protocol: ospf
+##### M Best: 0
+##### U Best: 1
+##### Next Hop Index: 1
+###### Next Hop: 172.16.252.2
+###### Route Preference: 110 
+###### Source Protocol: ospf
+###### Best Unicast Nexthop: True
+###### Metric: 41
+###### Updated: 00:08:13
+#### Route: 172.16.252.12/30 
+##### Active: True 
+##### Metric: 41
+##### Route Preference: 110
+##### Source Protocol: ospf
+##### M Best: 0
+##### U Best: 1
+##### Next Hop Index: 1
+###### Next Hop: 172.16.252.6
+###### Route Preference: 110 
+###### Source Protocol: ospf
+###### Best Unicast Nexthop: True
+###### Metric: 41
+###### Updated: 00:08:13
+#### Route: 172.16.252.16/30 
+##### Active: True 
+##### Metric: 41
+##### Route Preference: 110
+##### Source Protocol: ospf
+##### M Best: 0
+##### U Best: 2
+##### Next Hop Index: 1
+###### Next Hop: 172.16.252.2
+###### Route Preference: 110 
+###### Source Protocol: ospf
+###### Best Unicast Nexthop: True
+###### Metric: 41
+###### Updated: 00:08:13
+##### Next Hop Index: 2
+###### Next Hop: 172.16.252.6
+###### Route Preference: 110 
+###### Source Protocol: ospf
+###### Best Unicast Nexthop: True
+###### Metric: 41
+###### Updated: 00:08:13
+#### Route: 172.16.252.20/30 
+##### Active: True 
+##### Metric: 41
+##### Route Preference: 110
+##### Source Protocol: ospf
+##### M Best: 0
+##### U Best: 1
+##### Next Hop Index: 1
+###### Next Hop: 172.16.252.2
+###### Route Preference: 110 
+###### Source Protocol: ospf
+###### Best Unicast Nexthop: True
+###### Metric: 41
+###### Updated: 00:08:13
+#### Route: 172.16.252.24/30 
+##### Active: True 
+##### Metric: 41
+##### Route Preference: 110
+##### Source Protocol: ospf
+##### M Best: 0
+##### U Best: 1
+##### Next Hop Index: 1
+###### Next Hop: 172.16.252.2
+###### Route Preference: 110 
+###### Source Protocol: ospf
+###### Best Unicast Nexthop: True
+###### Metric: 41
+###### Updated: 00:08:13
+#### Route: 172.16.252.28/30 
+##### Active: True 
+##### Metric: 41
+##### Route Preference: 110
+##### Source Protocol: ospf
+##### M Best: 0
+##### U Best: 1
+##### Next Hop Index: 1
+###### Next Hop: 172.16.252.6
+###### Route Preference: 110 
+###### Source Protocol: ospf
+###### Best Unicast Nexthop: True
+###### Metric: 41
+###### Updated: 00:08:13
+#### Route: 172.16.252.32/30 
+##### Active: True 
+##### Metric: 41
+##### Route Preference: 110
+##### Source Protocol: ospf
+##### M Best: 0
+##### U Best: 1
+##### Next Hop Index: 1
+###### Next Hop: 172.16.252.6
+###### Route Preference: 110 
+###### Source Protocol: ospf
+###### Best Unicast Nexthop: True
+###### Metric: 41
+###### Updated: 00:08:13
+### management - ipv4
+#### Route: 0.0.0.0/0 
+##### Active: True 
+##### Metric: 0
+##### Route Preference: 1
+##### Source Protocol: static
+##### M Best: 0
+##### U Best: 1
+##### Next Hop Index: 1
+###### Next Hop: 10.10.20.254
+###### Route Preference: 1 
+###### Source Protocol: static
+###### Best Unicast Nexthop: True
+###### Metric: 0
+###### Updated: 00:06:54
+#### Route: 10.10.20.0/24 
+##### Active: True 
+##### Metric: 0
+##### Route Preference: 0
+##### Source Protocol: direct
+##### M Best: 0
+##### U Best: 1
+##### Next Hop Index: 1
+###### Next Hop: 10.10.20.177
+###### Route Preference: 0 
+###### Source Protocol: direct
+###### Best Unicast Nexthop: True
+###### Metric: 0
+###### Updated: 00:08:21
+#### Route: 10.10.20.177/32 
+##### Active: True 
+##### Metric: 0
+##### Route Preference: 0
+##### Source Protocol: local
+##### M Best: 0
+##### U Best: 1
+##### Next Hop Index: 1
+###### Next Hop: 10.10.20.177
+###### Route Preference: 0 
+###### Source Protocol: local
+###### Best Unicast Nexthop: True
+###### Metric: 0
+###### Updated: 00:08:21
 ## neighbors
 ### CDP
-#### dist-sw02(9AKMNXJW0ER)
+#### dist-sw02(94K16YQ85XC)
 ##### **Platform**: N9K-9000v
 ##### **Local Port**:mgmt0
 ##### **Remote Port**:mgmt0
+#### dist-sw02(94K16YQ85XC)
+##### **Platform**: N9K-9000v
+##### **Local Port**:Ethernet1/1
+##### **Remote Port**:Ethernet1/1
 ## MAC Addresses
 ### 101
 #### 0000.0c07.ac0a
-#### 5254.0009.1bcb
-#### 5254.001a.f634}
-### 102
-#### 0000.0c07.ac0a
-#### 5254.0009.1bcb
-#### 5254.001a.f634}
-### 103
-#### 0000.0c07.ac0a
-#### 5254.0009.1bcb
-#### 5254.001a.f634}
-### 104
-#### 0000.0c07.ac0a
-#### 5254.0009.1bcb
-#### 5254.001a.f634}
-### 105
-#### 0000.0c07.ac0a
-#### 5254.0009.1bcb
-#### 5254.001a.f634}
+#### 5254.0001.a994}
 ### -
-#### 5254.001a.f634}}
+#### 5254.0001.a994}}
 ## ARP table
+### default
+#### 172.16.252.2
+##### age: 00:08:16
+##### Link Layer Address: 5254.000e.4bdd
+##### origin: dynamic
+#### 172.16.252.6
+##### age: 00:08:16
+##### Link Layer Address: 5254.0006.5fce
+##### origin: dynamic
+#### 172.16.101.1
+##### age: -
+##### Link Layer Address: 0000.0c07.ac0a
+##### origin: static
+### management
+#### 10.10.20.178
+##### age: 00:00:02
+##### Link Layer Address: 5254.0018.e9c8
+##### origin: dynamic
+#### 10.10.20.254
+##### age: 00:06:49
+##### Link Layer Address: 0050.56bf.af40
+##### origin: dynamic
 ## Interfaces
 ### Key
 #### interface type
