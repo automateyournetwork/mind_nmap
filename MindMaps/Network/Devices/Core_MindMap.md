@@ -108,9 +108,71 @@
 ##### TenGigabitEthernet1/2/3
 ##### TenGigabitEthernet1/2/5
 ##### TenGigabitEthernet1/2/7
-## VRF
-### RED
-### BLUE
+## VRF / Address Family
+### RED - ipv4
+#### Route: 0.0.0.0/0 
+##### Active: True 
+##### Metric: 6
+##### Next Hop Index: 1
+###### Next Hop: 192.168.100.1
+###### Route Preference: 110 
+###### Source Protocol: ospf
+###### Source Protocol Code: O*IA
+#### Route: 192.168.200.0/30
+##### Active: True 
+##### Metric: 6
+##### Next Hop Index: 1
+###### Next Hop: 192.168.200.1
+###### Route Preference: 110 
+###### Source Protocol: ospf
+###### Source Protocol Code: O
+
+#### Route: 192.168.1.0/30
+##### Active: True 
+##### Metric: 
+
+##### Outgoing Interface: Port-channel1
+###### Source Protocol: connected
+###### Source Protocol Code: C
+#### Route: 192.168.1.1/32
+##### Active: True 
+##### Metric: 
+
+##### Outgoing Interface: Port-channel1
+###### Source Protocol: local
+###### Source Protocol Code: L
+### BLUE - ipv4
+#### Route: 0.0.0.0/0 
+##### Active: True 
+##### Metric: 6
+##### Next Hop Index: 1
+###### Next Hop: 192.168.150.1
+###### Route Preference: 110 
+###### Source Protocol: ospf
+###### Source Protocol Code: O*IA
+#### Route: 192.168.150.0/30
+##### Active: True 
+##### Metric: 6
+##### Next Hop Index: 1
+###### Next Hop: 192.168.200.1
+###### Route Preference: 110 
+###### Source Protocol: ospf
+###### Source Protocol Code: O
+
+#### Route: 192.168.250.0/30
+##### Active: True 
+##### Metric: 
+
+##### Outgoing Interface: Port-channel2
+###### Source Protocol: connected
+###### Source Protocol Code: C
+#### Route: 192.168.250.1/32
+##### Active: True 
+##### Metric: 
+
+##### Outgoing Interface: Port-channel2
+###### Source Protocol: local
+###### Source Protocol Code: L
 ## neighbors
 ### CDP
 #### Port-channel1

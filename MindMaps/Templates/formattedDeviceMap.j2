@@ -120,18 +120,50 @@
 {%-   endif %}
 {%- endfor %}
 {#- VRFs #}
-## VRF
-{%- if  device_os != 'nxos' %}
-{%-   for vrf in sh_vrf_parsed.vrf %}
-### {{vrf}}
-{%-   endfor%}
-{%- else %}
-{%-   for vrf in sh_vrf_parsed.vrfs %}
-### {{vrf}}
-#### {{sh_vrf_parsed.vrfs[vrf].vrf_id}}
-#### {{sh_vrf_parsed.vrfs[vrf].vrf_state}}
-{%-   endfor%}
-{% endif %}
+## VRF / Address Family
+{%-   for vrf in to_parse_routing %}
+{%-     for address_family in to_parse_routing[vrf].address_family %}
+{%-         if 'v4' in address_family %}
+### {{ vrf }} - ipv4
+{%-         else %}
+### {{ vrf }} - ipv6
+{%          endif %}
+{%-         for route in to_parse_routing[vrf].address_family[address_family].routes %}
+#### Route: {{ route }} 
+##### Active: {{ to_parse_routing[vrf].address_family[address_family].routes[route].active }} 
+##### Metric: {{ to_parse_routing[vrf].address_family[address_family].routes[route].metric }}
+{%-             if device_os == 'nxos' %}
+##### Route Preference: {{ to_parse_routing[vrf].address_family[address_family].routes[route].route_preference }}
+##### Source Protocol: {{ to_parse_routing[vrf].address_family[address_family].routes[route].source_protocol }}
+##### M Best: {{ to_parse_routing[vrf].address_family[address_family].routes[route].mbest }}
+##### U Best: {{ to_parse_routing[vrf].address_family[address_family].routes[route].ubest }}
+{%-             endif %}
+{%-             if to_parse_routing[vrf].address_family[address_family].routes[route].next_hop.next_hop_list is defined %}
+{%-                 for next_hop_item in to_parse_routing[vrf].address_family[address_family].routes[route].next_hop.next_hop_list %}
+##### Next Hop Index: {{ next_hop_item }}
+###### Next Hop: {{ to_parse_routing[vrf].address_family[address_family].routes[route].next_hop.next_hop_list[next_hop_item].next_hop }}
+###### Route Preference: {{ to_parse_routing[vrf].address_family[address_family].routes[route].route_preference }} 
+###### Source Protocol: {{ to_parse_routing[vrf].address_family[address_family].routes[route].source_protocol }}
+{%-                     if device_os == 'nxos' %}
+###### Best Unicast Nexthop: {{ to_parse_routing[vrf].address_family[address_family].routes[route].next_hop.next_hop_list[next_hop_item].best_ucast_nexthop }}
+###### Metric: {{ to_parse_routing[vrf].address_family[address_family].routes[route].next_hop.next_hop_list[next_hop_item].metric }}
+###### Updated: {{ to_parse_routing[vrf].address_family[address_family].routes[route].next_hop.next_hop_list[next_hop_item].updated }}
+{%-                     else %}
+###### Source Protocol Code: {{ to_parse_routing[vrf].address_family[address_family].routes[route].source_protocol_codes }}
+{%-                     endif %}
+{%-                 endfor %}
+{%-             else %}
+{%                  if device_os != 'nxos'%}
+{%-                     for outgoing_interface in to_parse_routing[vrf].address_family[address_family].routes[route].next_hop.outgoing_interface %}
+##### Outgoing Interface: {{ outgoing_interface }} 
+###### Source Protocol: {{ to_parse_routing[vrf].address_family[address_family].routes[route].source_protocol }}
+###### Source Protocol Code: {{ to_parse_routing[vrf].address_family[address_family].routes[route].source_protocol_codes }}
+{%-                     endfor %}
+{%-                 endif %}
+{%-             endif %}
+{%-         endfor %}
+{%-     endfor %}
+{%-   endfor %}
 {#- NEIGHBORNG #}
 {#- CDP NEIGHBORING #}
 ## neighbors
@@ -184,10 +216,12 @@
 #### {{neighbor}}
 ##### **Local Port**:{{port}}
 ##### **Remote Port**:{{int}}
+{%-         if sh_parse_lldp_detail['interfaces'][int].port_id[port].neighbors[neighbor].capabilities is defined%}
 ##### **Capabilities**
-{%-         for item in sh_parse_lldp_detail['interfaces'][int].port_id[port].neighbors[neighbor].capabilities %}
-###### {{item}} - Enabled: {{sh_parse_lldp_detail['interfaces'][int].port_id[port].neighbors[neighbor].capabilities[item].enabled}}
-{%-         endfor %}
+{%-           for item in sh_parse_lldp_detail['interfaces'][int].port_id[port].neighbors[neighbor].capabilities %}
+###### {{item}}
+{%-           endfor %}
+{%-         endif%}
 {%-       endfor %}
 {%-     endfor %}
 {%-   endfor %}
@@ -202,17 +236,19 @@
 {%- endfor %}}
 {#- ARP TABLE #}
 ## ARP table
-{%- for int in sh_arp_parsed['interfaces'] %}
-### {{int}}
-{%-   for neighbor in sh_arp_parsed['interfaces'][int].ipv4.neighbors %}
+{%- for vrf in sh_arp_parsed %}
+### {{vrf}}
+{%-   for int in sh_arp_parsed[vrf] %}
+{%-     for neighbor in sh_arp_parsed[vrf][int].ipv4.neighbors %}
 #### {{neighbor}}
-##### age: {{sh_arp_parsed['interfaces'][int].ipv4.neighbors[neighbor].age}}
-##### Link Layer Address: {{sh_arp_parsed['interfaces'][int].ipv4.neighbors[neighbor].link_layer_address}}
-{%-     if 'ios' or 'iosxe' in device_os %}
-##### protocol: {{sh_arp_parsed['interfaces'][int].ipv4.neighbors[neighbor].protocol}}
-{%-     elif 'nxos' in device_os %}
-##### origin: {{sh_arp_parsed['interfaces'][int].ipv4.neighbors[neighbor].origin}}
-{%-     endif %}
+##### age: {{sh_arp_parsed[vrf][int].ipv4.neighbors[neighbor].age}}
+##### Link Layer Address: {{sh_arp_parsed[vrf][int].ipv4.neighbors[neighbor].link_layer_address}}
+{%-       if device_os != 'nxos' %}
+##### protocol: {{sh_arp_parsed[vrf][int].ipv4.neighbors[neighbor].protocol}}
+{%-       else %}
+##### origin: {{sh_arp_parsed[vrf][int].ipv4.neighbors[neighbor].origin}}
+{%-       endif %}
+{%-     endfor %}
 {%-   endfor %}
 {%- endfor %}
 {#- SHOW INTERFACES #}
@@ -289,12 +325,18 @@
 ### GigabitEthernet
 {%-   for int in sh_int_parsed %}
 {%-     if 'GigabitEthernet' in int %}
-{%-       if 'Ten' or '2.5' or 'Twenty' or 'Forty' not in int%}
+{%-       if 'Ten' not in int%}
+{%-         if '2.5' not in int%}
+{%-           if 'Twenty' not in int%}
+{%-             if 'Forty' not in int%}
 #### {{int}}
 ##### {{sh_int_parsed[int].phys_address}}
 ##### Enabled: {{sh_int_parsed[int].enabled}}
 ##### {{sh_int_parsed[int].last_input}}
 ##### {{sh_int_parsed[int].last_output}}
+{%-             endif %}
+{%-           endif %}
+{%-         endif %}
 {%-       endif %}
 {%-     endif %}
 {%-   endfor %}
