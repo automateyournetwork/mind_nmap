@@ -484,3 +484,43 @@
 {%-     endif %}
 {%-   endfor %}
 {%- endif %}
+## HSRP
+{%- for vlan in to_parse_hsrp %}
+{%-     for address_family in to_parse_hsrp[vlan].address_family %}
+{%-         for version in to_parse_hsrp[vlan].address_family[address_family].version %}
+{%-             if 'v4' in address_family %}
+### {{ vlan }} - ipv4 HSRP V:{{ version }}
+{%-             else %}
+### {{ vlan }} - ipv6 HSRP V:{{ version }}
+{%              endif %}
+{%-             for group in to_parse_hsrp[vlan].address_family[address_family].version[version].groups %}
+#### Use BIA: {{ to_parse_hsrp[vlan].use_bia }}
+#### Group: {{ group }}
+##### Active Router: {{ to_parse_hsrp[vlan].address_family[address_family].version[version].groups[group].active_router }}
+{%                  if to_parse_hsrp[vlan].address_family[address_family].version[version].groups[group].active_ip_address is defined %}
+##### Active IP Address: {{ to_parse_hsrp[vlan].address_family[address_family].version[version].groups[group].active_ip_address }}
+{%-                 endif %}
+##### Active Router: {{ to_parse_hsrp[vlan].address_family[address_family].version[version].groups[group].active_router }}
+##### Authetication: {{ to_parse_hsrp[vlan].address_family[address_family].version[version].groups[group].authentication }}
+##### Router State: {{ to_parse_hsrp[vlan].address_family[address_family].version[version].groups[group].hsrp_router_state }}
+{%-                 if 'v4' in address_family %}
+##### IP Address: {{ to_parse_hsrp[vlan].address_family[address_family].version[version].groups[group].primary_ipv4_address.address }}
+##### Learn Virtual IP: {{ to_parse_hsrp[vlan].address_family[address_family].version[version].groups[group].primary_ipv4_address.virtual_ip_learn }}
+{%-                 else %}
+##### IP Address: {{ to_parse_hsrp[vlan].address_family[address_family].version[version].groups[group].primary_ipv6_address.address }}
+##### Learn Virtual IP: {{ to_parse_hsrp[vlan].address_family[address_family].version[version].groups[group].primary_ipv6_address.virtual_ip_learn }}
+{%-                 endif %}
+##### Priority: {{ to_parse_hsrp[vlan].address_family[address_family].version[version].groups[group].priority }}
+##### Session Name: {{ to_parse_hsrp[vlan].address_family[address_family].version[version].groups[group].session_name }}
+##### Standby IP Address: {{ to_parse_hsrp[vlan].address_family[address_family].version[version].groups[group].standby_ip_address }}
+##### Standby Router: {{ to_parse_hsrp[vlan].address_family[address_family].version[version].groups[group].standby_router }}
+##### Virtual MAC: {{ to_parse_hsrp[vlan].address_family[address_family].version[version].groups[group].virtual_mac_address }}
+##### Timers:
+###### Hello Seconds: {{ to_parse_hsrp[vlan].address_family[address_family].version[version].groups[group].timers.hello_sec }}
+###### Hold Seconds: {{ to_parse_hsrp[vlan].address_family[address_family].version[version].groups[group].timers.hold_sec }}
+###### Hello MSec Flag: {{ to_parse_hsrp[vlan].address_family[address_family].version[version].groups[group].timers.hello_msec_flag }}
+###### Hold MSec Flag: {{ to_parse_hsrp[vlan].address_family[address_family].version[version].groups[group].timers.hold_msec_flag }}
+{%-             endfor %}
+{%-         endfor %}
+{%-     endfor %}
+{%- endfor %}

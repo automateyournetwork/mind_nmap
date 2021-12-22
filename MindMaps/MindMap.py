@@ -59,6 +59,9 @@ class Collect_Information(aetest.Testcase):
             if device.type != 'switch':
                 self.learned_ospf = ParseLearnFunction.parse_learn(steps, device, "ospf")
 
+            ### Learn HSRP
+            if device.type != 'switch':
+                self.learned_hsrp = ParseLearnFunction.parse_learn(steps, device, "hsrp")
             # ---------------------------------------
             # Execute parser for various show commands
             # ---------------------------------------
@@ -188,7 +191,8 @@ class Collect_Information(aetest.Testcase):
                         sh_vlan_parsed=self.parsed_show_vlan['vlans'],
                         sh_vrf_parsed=self.parsed_show_vrf,
                         to_parse_routing = full_route_list,
-                        to_parse_ospf = self.learned_ospf['vrf']                      
+                        to_parse_ospf = self.learned_ospf['vrf'],
+                        to_parse_hsrp = self.learned_hsrp
                         )
 
                     with open(f"Network/Devices/{ device.alias }_MindMap.md", "w") as fh:
