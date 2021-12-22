@@ -168,6 +168,8 @@ class Collect_Information(aetest.Testcase):
                     if device.os == 'nxos':
                         self.parsed_show_int='Parser Broken'
                         self.parsed_show_interfaces_trunk='Parser Broken'
+                    else:
+                        self.learned_ospf='Not Done'
 
                     print(device.os)
 
