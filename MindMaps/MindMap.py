@@ -13,7 +13,7 @@ from pyats import aetest
 from pyats import topology
 from pyats.log.utils import banner
 from jinja2 import Environment, FileSystemLoader
-from general_functionalities import ParseShowCommandFunction
+from general_functionalities import ParseShowCommandFunction, ParseLearnFunction
 
 # ----------------
 # Get logger for script
@@ -51,6 +51,14 @@ class Collect_Information(aetest.Testcase):
         # Loop over devices
         # ---------------------------------------
         for device in testbed:
+            # ---------------------------------------
+            # Execute learn functions
+            # ---------------------------------------
+
+            ### Learn OSPF
+            if device.type != 'switch':
+                self.learned_ospf = ParseLearnFunction.parse_learn(steps, device, "ospf")
+
             # ---------------------------------------
             # Execute parser for various show commands
             # ---------------------------------------
@@ -177,7 +185,8 @@ class Collect_Information(aetest.Testcase):
                         sh_version_parsed=self.parsed_show_version,
                         sh_vlan_parsed=self.parsed_show_vlan['vlans'],
                         sh_vrf_parsed=self.parsed_show_vrf,
-                        to_parse_routing = full_route_list                      
+                        to_parse_routing = full_route_list,
+                        to_parse_ospf = self.learned_ospf['vrf']                      
                         )
 
                     with open(f"Network/Devices/{ device.alias }_MindMap.md", "w") as fh:

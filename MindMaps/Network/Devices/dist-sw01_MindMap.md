@@ -2,7 +2,7 @@
 # dist-sw01
 ##  Device Information
 
-### Serial number: 9V7DG3YWIFC
+### Serial number: 975R0NAZNJL
 ### Device Type: Nexus9000 9000v
 ### Version: 9.2(4)
 ### Operating System: NX-OS
@@ -10,11 +10,11 @@
 ### Chassis
 #### N9K-9000v
 #### Nexus9000 9000v Chassis
-#### 9V7DG3YWIFC
+#### 975R0NAZNJL
 ### Slot 1
 #### N9K-9000v
 #### Nexus 9000v Ethernet Module
-#### 9V7DG3YWIFC
+#### 975R0NAZNJL
 ### Fan 1
 #### N9K-9000v-FAN
 #### Nexus9000 9000v Chassis Fan Module
@@ -192,8 +192,8 @@
 ##### Port-channel1
 ##### Ethernet1/1
 ##### Ethernet1/2
-## VRF / Address Family
-### default - ipv4
+## VRF Routing Table
+### default - ipv4 routes
 #### Route: 172.16.101.0/24 
 ##### Active: True 
 ##### Metric: 0
@@ -207,7 +207,7 @@
 ###### Source Protocol: direct
 ###### Best Unicast Nexthop: True
 ###### Metric: 0
-###### Updated: 00:08:23
+###### Updated: 01:30:16
 #### Route: 172.16.101.1/32 
 ##### Active: True 
 ##### Metric: 0
@@ -221,7 +221,7 @@
 ###### Source Protocol: hsrp
 ###### Best Unicast Nexthop: True
 ###### Metric: 0
-###### Updated: 00:08:02
+###### Updated: 01:29:55
 #### Route: 172.16.101.2/32 
 ##### Active: True 
 ##### Metric: 0
@@ -235,7 +235,7 @@
 ###### Source Protocol: local
 ###### Best Unicast Nexthop: True
 ###### Metric: 0
-###### Updated: 00:08:23
+###### Updated: 01:30:16
 #### Route: 172.16.102.0/24 
 ##### Active: True 
 ##### Metric: 81
@@ -249,14 +249,14 @@
 ###### Source Protocol: ospf
 ###### Best Unicast Nexthop: True
 ###### Metric: 81
-###### Updated: 00:08:01
+###### Updated: 01:29:55
 ##### Next Hop Index: 2
 ###### Next Hop: 172.16.252.6
 ###### Route Preference: 110 
 ###### Source Protocol: ospf
 ###### Best Unicast Nexthop: True
 ###### Metric: 81
-###### Updated: 00:08:01
+###### Updated: 01:29:55
 #### Route: 172.16.252.0/30 
 ##### Active: True 
 ##### Metric: 0
@@ -270,7 +270,7 @@
 ###### Source Protocol: direct
 ###### Best Unicast Nexthop: True
 ###### Metric: 0
-###### Updated: 00:08:25
+###### Updated: 01:30:19
 #### Route: 172.16.252.1/32 
 ##### Active: True 
 ##### Metric: 0
@@ -284,7 +284,7 @@
 ###### Source Protocol: local
 ###### Best Unicast Nexthop: True
 ###### Metric: 0
-###### Updated: 00:08:25
+###### Updated: 01:30:19
 #### Route: 172.16.252.4/30 
 ##### Active: True 
 ##### Metric: 0
@@ -298,7 +298,7 @@
 ###### Source Protocol: direct
 ###### Best Unicast Nexthop: True
 ###### Metric: 0
-###### Updated: 00:08:25
+###### Updated: 01:30:18
 #### Route: 172.16.252.5/32 
 ##### Active: True 
 ##### Metric: 0
@@ -312,7 +312,7 @@
 ###### Source Protocol: local
 ###### Best Unicast Nexthop: True
 ###### Metric: 0
-###### Updated: 00:08:25
+###### Updated: 01:30:18
 #### Route: 172.16.252.8/30 
 ##### Active: True 
 ##### Metric: 41
@@ -326,7 +326,7 @@
 ###### Source Protocol: ospf
 ###### Best Unicast Nexthop: True
 ###### Metric: 41
-###### Updated: 00:08:13
+###### Updated: 01:30:09
 #### Route: 172.16.252.12/30 
 ##### Active: True 
 ##### Metric: 41
@@ -340,7 +340,7 @@
 ###### Source Protocol: ospf
 ###### Best Unicast Nexthop: True
 ###### Metric: 41
-###### Updated: 00:08:13
+###### Updated: 01:30:09
 #### Route: 172.16.252.16/30 
 ##### Active: True 
 ##### Metric: 41
@@ -354,14 +354,14 @@
 ###### Source Protocol: ospf
 ###### Best Unicast Nexthop: True
 ###### Metric: 41
-###### Updated: 00:08:13
+###### Updated: 01:30:09
 ##### Next Hop Index: 2
 ###### Next Hop: 172.16.252.6
 ###### Route Preference: 110 
 ###### Source Protocol: ospf
 ###### Best Unicast Nexthop: True
 ###### Metric: 41
-###### Updated: 00:08:13
+###### Updated: 01:30:09
 #### Route: 172.16.252.20/30 
 ##### Active: True 
 ##### Metric: 41
@@ -375,7 +375,7 @@
 ###### Source Protocol: ospf
 ###### Best Unicast Nexthop: True
 ###### Metric: 41
-###### Updated: 00:08:13
+###### Updated: 01:30:09
 #### Route: 172.16.252.24/30 
 ##### Active: True 
 ##### Metric: 41
@@ -389,7 +389,7 @@
 ###### Source Protocol: ospf
 ###### Best Unicast Nexthop: True
 ###### Metric: 41
-###### Updated: 00:08:13
+###### Updated: 01:30:09
 #### Route: 172.16.252.28/30 
 ##### Active: True 
 ##### Metric: 41
@@ -403,7 +403,7 @@
 ###### Source Protocol: ospf
 ###### Best Unicast Nexthop: True
 ###### Metric: 41
-###### Updated: 00:08:13
+###### Updated: 01:30:09
 #### Route: 172.16.252.32/30 
 ##### Active: True 
 ##### Metric: 41
@@ -417,8 +417,8 @@
 ###### Source Protocol: ospf
 ###### Best Unicast Nexthop: True
 ###### Metric: 41
-###### Updated: 00:08:13
-### management - ipv4
+###### Updated: 01:30:09
+### management - ipv4 routes
 #### Route: 0.0.0.0/0 
 ##### Active: True 
 ##### Metric: 0
@@ -432,7 +432,7 @@
 ###### Source Protocol: static
 ###### Best Unicast Nexthop: True
 ###### Metric: 0
-###### Updated: 00:06:54
+###### Updated: 00:41:32
 #### Route: 10.10.20.0/24 
 ##### Active: True 
 ##### Metric: 0
@@ -446,7 +446,7 @@
 ###### Source Protocol: direct
 ###### Best Unicast Nexthop: True
 ###### Metric: 0
-###### Updated: 00:08:21
+###### Updated: 01:30:14
 #### Route: 10.10.20.177/32 
 ##### Active: True 
 ##### Metric: 0
@@ -460,32 +460,370 @@
 ###### Source Protocol: local
 ###### Best Unicast Nexthop: True
 ###### Metric: 0
-###### Updated: 00:08:21
+###### Updated: 01:30:14
+## IPv4 OSPF VRF default Instance: 1
+### Auto Cost Enabled: False
+### Reference Bandwidth: 40000
+### Instance Enabled: True
+### Graceful Restart Type: ietf
+### Graceful Restart Enabled: True
+### Graceful Restart Interval: 60
+### NSR Enabled: True
+### Preference: 110
+### Router ID: 172.16.101.2
+### SPF Paths: 8
+### LSA Hold: 5000
+### LSA Maximum: 5000
+### LSA Start: 0
+### SPF Hold: 1000
+### SPF Maximum: 5000
+### SPF Start: 200
+### Area: 0.0.0.0
+#### Area Type: normal
+#### LSA Type: 1
+##### LSA: 172.16.252.33 172.16.252.33
+##### Advertising Router: 172.16.252.33
+##### Age: 1546
+##### Checksum: 0xa23d
+##### Length: 84
+##### Option: 0x22
+##### Sequence Number: 0x8000000c
+##### Number of Links: 5
+##### Link Data: 255.255.255.252
+##### Link Type: stub network
+##### Link: 172.16.252.28
+###### Topology: 0
+###### Metric: 1
+###### MPLS LDP Auto Config: False
+###### MPLS LDP Sync: False
+###### Area LSA Checksum: 9
+###### Area LSA Count: 9
+###### SPF Count: 7
+##### Number of Links: 5
+##### Link Data: 255.255.255.252
+##### Link Type: stub network
+##### Link: 172.16.252.32
+###### Topology: 0
+###### Metric: 1
+###### MPLS LDP Auto Config: False
+###### MPLS LDP Sync: False
+###### Area LSA Checksum: 9
+###### Area LSA Count: 9
+###### SPF Count: 7
+##### Number of Links: 5
+##### Link Data: 172.16.252.6
+##### Link Type: transit network
+##### Link: 172.16.252.6
+###### Topology: 0
+###### Metric: 1
+###### MPLS LDP Auto Config: False
+###### MPLS LDP Sync: False
+###### Area LSA Checksum: 9
+###### Area LSA Count: 9
+###### SPF Count: 7
+##### Number of Links: 5
+##### Link Data: 172.16.252.14
+##### Link Type: transit network
+##### Link: 172.16.252.14
+###### Topology: 0
+###### Metric: 1
+###### MPLS LDP Auto Config: False
+###### MPLS LDP Sync: False
+###### Area LSA Checksum: 9
+###### Area LSA Count: 9
+###### SPF Count: 7
+##### Number of Links: 5
+##### Link Data: 172.16.252.18
+##### Link Type: transit network
+##### Link: 172.16.252.18
+###### Topology: 0
+###### Metric: 1
+###### MPLS LDP Auto Config: False
+###### MPLS LDP Sync: False
+###### Area LSA Checksum: 9
+###### Area LSA Count: 9
+###### SPF Count: 7
+##### LSA: 172.16.252.25 172.16.252.25
+##### Advertising Router: 172.16.252.25
+##### Age: 1504
+##### Checksum: 0xf120
+##### Length: 84
+##### Option: 0x22
+##### Sequence Number: 0x8000000b
+##### Number of Links: 5
+##### Link Data: 255.255.255.252
+##### Link Type: stub network
+##### Link: 172.16.252.20
+###### Topology: 0
+###### Metric: 1
+###### MPLS LDP Auto Config: False
+###### MPLS LDP Sync: False
+###### Area LSA Checksum: 9
+###### Area LSA Count: 9
+###### SPF Count: 7
+##### Number of Links: 5
+##### Link Data: 255.255.255.252
+##### Link Type: stub network
+##### Link: 172.16.252.24
+###### Topology: 0
+###### Metric: 1
+###### MPLS LDP Auto Config: False
+###### MPLS LDP Sync: False
+###### Area LSA Checksum: 9
+###### Area LSA Count: 9
+###### SPF Count: 7
+##### Number of Links: 5
+##### Link Data: 172.16.252.2
+##### Link Type: transit network
+##### Link: 172.16.252.2
+###### Topology: 0
+###### Metric: 1
+###### MPLS LDP Auto Config: False
+###### MPLS LDP Sync: False
+###### Area LSA Checksum: 9
+###### Area LSA Count: 9
+###### SPF Count: 7
+##### Number of Links: 5
+##### Link Data: 172.16.252.10
+##### Link Type: transit network
+##### Link: 172.16.252.10
+###### Topology: 0
+###### Metric: 1
+###### MPLS LDP Auto Config: False
+###### MPLS LDP Sync: False
+###### Area LSA Checksum: 9
+###### Area LSA Count: 9
+###### SPF Count: 7
+##### Number of Links: 5
+##### Link Data: 172.16.252.17
+##### Link Type: transit network
+##### Link: 172.16.252.18
+###### Topology: 0
+###### Metric: 1
+###### MPLS LDP Auto Config: False
+###### MPLS LDP Sync: False
+###### Area LSA Checksum: 9
+###### Area LSA Count: 9
+###### SPF Count: 7
+##### LSA: 172.16.101.3 172.16.101.3
+##### Advertising Router: 172.16.101.3
+##### Age: 1750
+##### Checksum: 0x89ac
+##### Length: 60
+##### Option: 0x2
+##### Sequence Number: 0x80000005
+##### Number of Links: 3
+##### Link Data: 255.255.255.0
+##### Link Type: stub network
+##### Link: 172.16.102.0
+###### Topology: 0
+###### Metric: 40
+###### MPLS LDP Auto Config: False
+###### MPLS LDP Sync: False
+###### Area LSA Checksum: 9
+###### Area LSA Count: 9
+###### SPF Count: 7
+##### Number of Links: 3
+##### Link Data: 172.16.252.13
+##### Link Type: transit network
+##### Link: 172.16.252.14
+###### Topology: 0
+###### Metric: 40
+###### MPLS LDP Auto Config: False
+###### MPLS LDP Sync: False
+###### Area LSA Checksum: 9
+###### Area LSA Count: 9
+###### SPF Count: 7
+##### Number of Links: 3
+##### Link Data: 172.16.252.9
+##### Link Type: transit network
+##### Link: 172.16.252.10
+###### Topology: 0
+###### Metric: 40
+###### MPLS LDP Auto Config: False
+###### MPLS LDP Sync: False
+###### Area LSA Checksum: 9
+###### Area LSA Count: 9
+###### SPF Count: 7
+##### LSA: 172.16.101.2 172.16.101.2
+##### Advertising Router: 172.16.101.2
+##### Age: 1761
+##### Checksum: 0x3623
+##### Length: 60
+##### Option: 0x2
+##### Sequence Number: 0x80000005
+##### Number of Links: 3
+##### Link Data: 255.255.255.0
+##### Link Type: stub network
+##### Link: 172.16.101.0
+###### Topology: 0
+###### Metric: 40
+###### MPLS LDP Auto Config: False
+###### MPLS LDP Sync: False
+###### Area LSA Checksum: 9
+###### Area LSA Count: 9
+###### SPF Count: 7
+##### Number of Links: 3
+##### Link Data: 172.16.252.5
+##### Link Type: transit network
+##### Link: 172.16.252.6
+###### Topology: 0
+###### Metric: 40
+###### MPLS LDP Auto Config: False
+###### MPLS LDP Sync: False
+###### Area LSA Checksum: 9
+###### Area LSA Count: 9
+###### SPF Count: 7
+##### Number of Links: 3
+##### Link Data: 172.16.252.1
+##### Link Type: transit network
+##### Link: 172.16.252.2
+###### Topology: 0
+###### Metric: 40
+###### MPLS LDP Auto Config: False
+###### MPLS LDP Sync: False
+###### Area LSA Checksum: 9
+###### Area LSA Count: 9
+###### SPF Count: 7
+#### LSA Type: 2
+##### LSA: 172.16.252.18 172.16.252.33
+##### Advertising Router: 172.16.252.33
+##### Age: 1547
+##### Checksum: 0xf9ec
+##### Length: 32
+##### Option: 0x22
+##### Sequence Number: 0x80000003
+##### LSA: 172.16.252.14 172.16.252.33
+##### Advertising Router: 172.16.252.33
+##### Age: 1547
+##### Checksum: 0x3a5e
+##### Length: 32
+##### Option: 0x22
+##### Sequence Number: 0x80000003
+##### LSA: 172.16.252.10 172.16.252.25
+##### Advertising Router: 172.16.252.25
+##### Age: 1505
+##### Checksum: 0x426a
+##### Length: 32
+##### Option: 0x22
+##### Sequence Number: 0x80000003
+##### LSA: 172.16.252.6 172.16.252.33
+##### Advertising Router: 172.16.252.33
+##### Age: 1547
+##### Checksum: 0x7c25
+##### Length: 32
+##### Option: 0x22
+##### Sequence Number: 0x80000003
+##### LSA: 172.16.252.2 172.16.252.25
+##### Advertising Router: 172.16.252.25
+##### Age: 1505
+##### Checksum: 0x8431
+##### Length: 32
+##### Option: 0x22
+##### Sequence Number: 0x80000003
+#### Interface: Vlan105
+##### Interface Enabled: True
+##### Interface Type: broadcast
+##### BFD Enabled: False
+##### Cost: 40
+##### Dead Interval: 
+##### Hello Interval: 
+##### Hello Timer: 
+#### Interface: Vlan104
+##### Interface Enabled: True
+##### Interface Type: broadcast
+##### BFD Enabled: False
+##### Cost: 40
+##### Dead Interval: 
+##### Hello Interval: 
+##### Hello Timer: 
+#### Interface: Vlan103
+##### Interface Enabled: True
+##### Interface Type: broadcast
+##### BFD Enabled: False
+##### Cost: 40
+##### Dead Interval: 
+##### Hello Interval: 
+##### Hello Timer: 
+#### Interface: Vlan102
+##### Interface Enabled: True
+##### Interface Type: broadcast
+##### BFD Enabled: False
+##### Cost: 40
+##### Dead Interval: 
+##### Hello Interval: 
+##### Hello Timer: 
+#### Interface: Vlan101
+##### Interface Enabled: True
+##### Interface Type: broadcast
+##### BFD Enabled: False
+##### Cost: 40
+##### Dead Interval: 
+##### Hello Interval: 
+##### Hello Timer: 
+#### Interface: Ethernet1/4
+##### Interface Enabled: True
+##### Interface Type: broadcast
+##### BFD Enabled: False
+##### Cost: 40
+##### Dead Interval: 40
+##### Hello Interval: 10
+##### Hello Timer: 00:00:07
+##### Neighbor: 172.16.252.33
+###### Address: 172.16.252.6
+###### State: full
+###### Last State Change: 01:30:02
+###### Passive: False
+###### Events: 6
+###### Dead Timer: 00:00:40
+###### Retransmit Interval: 5
+###### Link LSA Checksum: 0
+###### Link LSA Count: 0
+###### Transmit Delay: 1
+#### Interface: Ethernet1/3
+##### Interface Enabled: True
+##### Interface Type: broadcast
+##### BFD Enabled: False
+##### Cost: 40
+##### Dead Interval: 40
+##### Hello Interval: 10
+##### Hello Timer: 00:00:03
+##### Neighbor: 172.16.252.25
+###### Address: 172.16.252.2
+###### State: full
+###### Last State Change: 01:30:04
+###### Passive: False
+###### Events: 6
+###### Dead Timer: 00:00:40
+###### Retransmit Interval: 5
+###### Link LSA Checksum: 0
+###### Link LSA Count: 0
+###### Transmit Delay: 1
 ## neighbors
 ### CDP
-#### dist-sw02(94K16YQ85XC)
+#### dist-sw02(9D4DWTOLYXS)
 ##### **Platform**: N9K-9000v
 ##### **Local Port**:mgmt0
 ##### **Remote Port**:mgmt0
-#### dist-sw02(94K16YQ85XC)
+#### dist-sw02(9D4DWTOLYXS)
 ##### **Platform**: N9K-9000v
-##### **Local Port**:Ethernet1/1
-##### **Remote Port**:Ethernet1/1
+##### **Local Port**:Ethernet1/2
+##### **Remote Port**:Ethernet1/2
 ## MAC Addresses
 ### 101
 #### 0000.0c07.ac0a
-#### 5254.0001.a994}
+#### 5254.0002.5459}
 ### -
-#### 5254.0001.a994}}
+#### 5254.0002.5459}}
 ## ARP table
 ### default
 #### 172.16.252.2
-##### age: 00:08:16
-##### Link Layer Address: 5254.000e.4bdd
+##### age: 00:15:09
+##### Link Layer Address: 5254.0019.7840
 ##### origin: dynamic
 #### 172.16.252.6
-##### age: 00:08:16
-##### Link Layer Address: 5254.0006.5fce
+##### age: 00:15:09
+##### Link Layer Address: 5254.001b.7fe4
 ##### origin: dynamic
 #### 172.16.101.1
 ##### age: -
@@ -493,12 +831,12 @@
 ##### origin: static
 ### management
 #### 10.10.20.178
-##### age: 00:00:02
-##### Link Layer Address: 5254.0018.e9c8
+##### age: 00:00:06
+##### Link Layer Address: 5254.0011.cb05
 ##### origin: dynamic
 #### 10.10.20.254
-##### age: 00:06:49
-##### Link Layer Address: 0050.56bf.af40
+##### age: 00:03:57
+##### Link Layer Address: 0050.56bf.4218
 ##### origin: dynamic
 ## Interfaces
 ### Key

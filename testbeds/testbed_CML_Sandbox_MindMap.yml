@@ -1,9 +1,9 @@
 devices:
     dist-sw01:
      alias: 'dist-sw01'
-     type: 'switch'
+     type: 'router'
      os: 'nxos'
-     role: 'access'
+     role: 'dist'
      platform: n9k
      credentials:
        default:
@@ -17,9 +17,9 @@ devices:
            connection_timeout: 360
     dist-sw02:
      alias: 'dist-sw02'
-     type: 'switch'
+     type: 'router'
      os: 'nxos'
-     role: 'access'
+     role: 'dist'
      platform: n9k
      credentials:
        default:
