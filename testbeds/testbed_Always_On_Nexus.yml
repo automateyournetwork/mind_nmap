@@ -1,0 +1,17 @@
+devices:
+    Pod0-N9Kv-L1:
+     alias: 'sandbox-nxos-1.cisco'
+     type: 'router'
+     os: 'nxos'
+     role: 'dist'
+     platform: n9k
+     credentials:
+       default:
+         username: admin
+         password: Admin_1234!
+     connections:        
+       cli:
+         protocol: "ssh"
+         ip: "sandbox-nxos-1.cisco.com"
+         arguments:
+           connection_timeout: 360
