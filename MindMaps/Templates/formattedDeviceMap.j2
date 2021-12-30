@@ -691,3 +691,19 @@
 {%-         endfor %}
 {%-     endfor %}
 {%- endif %}
+{%- if to_parse_static_routing != 'No Static Routes' %}
+## Static Routes
+{%-     for vrf in to_parse_static_routing %}
+{%-         for address_family in to_parse_static_routing[vrf].address_family %}
+### VRF: {{ vrf }} Address Family: {{ address_family }}
+{%-             for route in to_parse_static_routing[vrf].address_family[address_family].routes %}
+#### Network: {{ route }}
+{%                  for next_hop in to_parse_static_routing[vrf].address_family[address_family].routes[route].next_hop.next_hop_list %}
+##### Next Hop {{ next_hop }}
+###### Next Hop: {{ to_parse_static_routing[vrf].address_family[address_family].routes[route].next_hop.next_hop_list[next_hop].active }}
+##### Active: {{ to_parse_static_routing[vrf].address_family[address_family].routes[route].next_hop.next_hop_list[next_hop].active }}
+{%-                 endfor %}
+{%-             endfor %}
+{%-         endfor %}
+{%-     endfor %}
+{%- endif %}
