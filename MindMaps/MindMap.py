@@ -62,6 +62,9 @@ class Collect_Information(aetest.Testcase):
             ### Learn HSRP
             if device.type != 'switch':
                 self.learned_hsrp = ParseLearnFunction.parse_learn(steps, device, "hsrp")
+            else:
+                self.learned_hsrp='Not enabled'
+
             # ---------------------------------------
             # Execute parser for various show commands
             # ---------------------------------------
@@ -166,15 +169,14 @@ class Collect_Information(aetest.Testcase):
                     formatted_device_map_template = env.get_template('formattedDeviceMap.j2')
                     
                     if device.type == 'switch':
-                        self.parsed_show_vrf='No VRF'                        
+                        self.parsed_show_vrf={}
 
                     if device.os == 'nxos':
                         self.parsed_show_int='Parser Broken'
                         self.parsed_show_interfaces_trunk='Parser Broken'
-                    else:
-                        self.learned_ospf='Not Done'
-
-                    print(device.os)
+                    
+                    if device.platform != 'c9300':
+                        self.parsed_show_license='parsed unavailble'
 
                     parsed_output_type = formatted_device_map_template.render(
                         inventory_hostname=device.alias,
@@ -185,14 +187,14 @@ class Collect_Information(aetest.Testcase):
                         sh_pc_sum_parsed=self.parsed_show_etherchannel_summary,
                         sh_int_parsed=self.parsed_show_int,
                         sh_trunk_parsed=self.parsed_show_interfaces_trunk,
+                        sh_license_parsed=self.parsed_show_license,
                         sh_inventory_parsed=self.parsed_show_inventory,
                         sh_mac_table_parsed=self.parsed_show_mac_address_table['mac_table'],
                         sh_version_parsed=self.parsed_show_version,
                         sh_vlan_parsed=self.parsed_show_vlan['vlans'],
-                        sh_vrf_parsed=self.parsed_show_vrf,
                         to_parse_routing = full_route_list,
                         to_parse_ospf = self.learned_ospf['vrf'],
-                        to_parse_hsrp = self.learned_hsrp
+                        to_parse_hsrp = self.learned_hsrp                   
                         )
 
                     with open(f"Network/Devices/{ device.alias }_MindMap.md", "w") as fh:

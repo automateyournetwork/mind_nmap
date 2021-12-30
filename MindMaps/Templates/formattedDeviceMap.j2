@@ -164,21 +164,22 @@
 {%-       endfor %}
 {%-   endfor %}
 {%- endfor %}
-{%- for vrf in to_parse_ospf %}
-{%-     for address_family in to_parse_ospf[vrf].address_family %}
-{%-         for instance in to_parse_ospf[vrf].address_family[address_family].instance %}
-{%-             if 'v4' in address_family %}
-## IPv4 OSPF VRF {{ vrf }} Instance: {{ instance }}
-{%-             else %}
-## IPv6 OSPF VRF {{ vrf }} Instance: {{ instance }}
-{%              endif %}
+{%- if device_os == 'nxos'%}
+{%-     for vrf in to_parse_ospf %}
+{%-         for address_family in to_parse_ospf[vrf].address_family %}
+{%-             for instance in to_parse_ospf[vrf].address_family[address_family].instance %}
+{%-                 if 'v4' in address_family %}
+## IPv4 OSPF VRF: {{ vrf }} Instance: {{ instance }}
+{%-                 else %}
+## IPv6 OSPF VRF: {{ vrf }} Instance: {{ instance }}
+{%                  endif %}
 ### Auto Cost Enabled: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].auto_cost.enable }}
 ### Reference Bandwidth: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].auto_cost.reference_bandwidth }}
 ### Instance Enabled: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].enable }}
-{%-             for graceful_restart_type in to_parse_ospf[vrf].address_family[address_family].instance[instance].graceful_restart %}
+{%-                 for graceful_restart_type in to_parse_ospf[vrf].address_family[address_family].instance[instance].graceful_restart %}
 ### Graceful Restart Type: {{ graceful_restart_type }}
-### Graceful Restart Enabled: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].graceful_restart[graceful_restart_type].enable }}
-### Graceful Restart Interval: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].graceful_restart[graceful_restart_type].restart_interval }}
+#### Graceful Restart Enabled: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].graceful_restart[graceful_restart_type].enable }}
+#### Graceful Restart Interval: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].graceful_restart[graceful_restart_type].restart_interval }}
 ### NSR Enabled: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].nsr.enable }}
 ### Preference: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].preference.single_value.all }}
 ### Router ID: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].router_id }}
@@ -189,14 +190,14 @@
 ### SPF Hold: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].spf_control.throttle.spf.hold }}
 ### SPF Maximum: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].spf_control.throttle.spf.maximum }}
 ### SPF Start: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].spf_control.throttle.spf.start }}
-{%-                 if to_parse_ospf[vrf].address_family[address_family].instance[instance].areas is defined %}
-{%-                     for area in to_parse_ospf[vrf].address_family[address_family].instance[instance].areas %}
+{%-                     if to_parse_ospf[vrf].address_family[address_family].instance[instance].areas is defined %}
+{%-                         for area in to_parse_ospf[vrf].address_family[address_family].instance[instance].areas %}
 ### Area: {{ area }}
 #### Area Type: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].area_type }}
-{%-                         if to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].database is defined %}
-{%-                             for lsa_type in to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types %}
+{%-                             if to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].database is defined %}
+{%-                                 for lsa_type in to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types %}
 #### LSA Type: {{ lsa_type }}
-{%-                                 for lsa in to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas %}
+{%-                                     for lsa in to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas %}
 ##### LSA: {{ lsa }}
 ##### Advertising Router: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].adv_router }}
 ##### Age: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.header.age }}
@@ -204,13 +205,13 @@
 ##### Length: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.header.length }}
 ##### Option: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.header.option }}
 ##### Sequence Number: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.header.seq_num }}
-{%-                                     if to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsa_type == 1 %}
-{%-                                         for link in to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.links %}
+{%-                                         if to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsa_type == 1 %}
+{%-                                             for link in to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.links %}
 ##### Number of Links: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.num_of_links }}
 ##### Link Data: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.links[link].link_data }}
 ##### Link Type: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.links[link].type }}
 ##### Link: {{ link }}
-{%-                                             for topology in to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.links[link].topologies %}
+{%-                                                 for topology in to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.links[link].topologies %}
 ###### Topology: {{ topology }}
 ###### Metric: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.links[link].topologies[topology].metric }}
 ###### MPLS LDP Auto Config: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].mpls.ldp.auto_config }}
@@ -218,27 +219,27 @@
 ###### Area LSA Checksum: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].statistics.area_scope_lsa_cksum_sum }}
 ###### Area LSA Count: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].statistics.area_scope_lsa_count }}
 ###### SPF Count: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].statistics.spf_runs_count }}
+{%-                                                 endfor %}
 {%-                                             endfor %}
-{%-                                         endfor %}
-{%-                                     endif %}
-{%-                                     if to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsa_type == 3 %}
-{%-                                         for topology in to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.summary.topologies %}
+{%-                                         endif %}
+{%-                                         if to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsa_type == 3 %}
+{%-                                             for topology in to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.summary.topologies %}
 ###### Topology: {{ topology }}
-{%-                                             if to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.summary.network_mask is defined %}
+{%-                                                 if to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.summary.network_mask is defined %}
 ###### Subnet Mask: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.summary.network_mask }}
-{%-                                             endif %}
+{%-                                                 endif %}
 ###### Metric: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.summary.topologies[topology].metric }}
 ###### MPLS LDP Auto Config: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].mpls.ldp.auto_config }}
 ###### MPLS LDP Sync: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].mpls.ldp.sync }}
 ###### Area LSA Checksum: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].statistics.area_scope_lsa_cksum_sum }}
 ###### Area LSA Count: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].statistics.area_scope_lsa_count }}
 ###### SPF Count: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].statistics.spf_runs_count }}
-{%-                                         endfor %}
-{%-                                     endif %}
-{%-                                 endfor %}
-{%-                              endfor %}
-{%-                          endif %}
-{%-                          for interface in to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].interfaces %}
+{%-                                             endfor %}
+{%-                                         endif %}
+{%-                                     endfor %}
+{%-                                  endfor %}
+{%-                              endif %}
+{%-                              for interface in to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].interfaces %}
 #### Interface: {{ interface }}
 ##### Interface Enabled: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].enable }}
 ##### Interface Type: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].interface_type }}
@@ -247,7 +248,7 @@
 ##### Dead Interval: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].dead_interval }}
 ##### Hello Interval: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].hello_interval }}
 ##### Hello Timer: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].hello_timer }}
-{%-                              for neighbor in to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors %}
+{%-                                  for neighbor in to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors %}
 ##### Neighbor: {{ neighbor }}
 ###### Address: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].address }}
 ###### State: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].state }}
@@ -259,14 +260,165 @@
 ###### Link LSA Checksum: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].statistics.link_scope_lsa_cksum_sum }}
 ###### Link LSA Count: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].statistics.link_scope_lsa_count }}
 ###### Transmit Delay: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].transmit_delay }}
+{%-                                  endfor %}
 {%-                              endfor %}
-{%-                          endfor %}
-{%-                     endfor %}
-{%-                 endif %}
+{%-                         endfor %}
+{%-                     endif %}
+{%-                 endfor %}
 {%-             endfor %}
 {%-         endfor %}
 {%-     endfor %}
-{%- endfor %}
+{%- else %}
+{%-     for vrf in to_parse_ospf %}
+{%-         if vrf == "default" %}
+{%-             for address_family in to_parse_ospf[vrf].address_family %}
+{%-                 for instance in to_parse_ospf[vrf].address_family[address_family].instance %}
+{%-                     for graceful_restart in to_parse_ospf[vrf].address_family[address_family].instance[instance].graceful_restart %}
+{%-                         if 'v4' in address_family %}
+## IPv4 OSPF VRF: {{ vrf }} Instance: {{ instance }}
+{%-                         else %}
+## IPv6 OSPF VRF: {{ vrf }} Instance: {{ instance }}
+{%-                          endif %}
+### Router ID: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].router_id }}
+### Auto Cost Enabled: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].auto_cost.enable }}
+### BFD Enabled: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].bfd.enable }}
+### Router ID: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].bfd.enable }}
+### Graceful Restart: {{ graceful_restart }}
+#### Graceful Restart Enabled: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].graceful_restart[graceful_restart].enable }}
+{%-                          if to_parse_ospf[vrf].address_family[address_family].instance[instance].mpls is defined %}
+### MPLS Auto Config: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].mpls.ldp.autoconfig }}
+{%-                          endif %}
+### NSR Enabled: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].nsr.enable }}
+{%-                         if to_parse_ospf[vrf].address_family[address_family].instance[instance].preference is defined %}
+### Preference: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].preference.single_value.all }}
+{%-                         endif %} 
+{%-                         if to_parse_ospf[vrf].address_family[address_family].instance[instance].spf_control.paths is defined %}
+### Paths: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].spf_control.paths }}
+{%-                         endif %}
+### SPF Throttle Start: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].spf_control.throttle.spf.start }}
+### SPF Hold: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].spf_control.throttle.spf.hold }}
+### SPF Maximum: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].spf_control.throttle.spf.maximum }}
+{%-                         for area in to_parse_ospf[vrf].address_family[address_family].instance[instance].areas %}
+### Area: {{ area }}
+#### Area Type: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].area_type }}
+#### SPF Total: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].statistics.spf_runs_count }}
+{%-                             if to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].mpls is defined %}
+#### MPLS TE: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].mpls.te.enable }}
+{%-                             endif %}
+{%-                             for lsa_type in to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types %}
+{%-                                 for lsa in to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas %}
+#### LSA Type: {{ lsa_type }} LSA: {{ lsa }}
+##### LSA Advertising Router: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].adv_router }}
+##### LSA ID: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].lsa_id }}
+{%-                                      if to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.header is defined %}
+##### Header Age: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.header.age }}
+##### Header Checksum: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.header.checksum }}
+##### Header Length: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.header.length }}
+##### Header Option: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.header.option }}
+##### Sequence Number: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.header.seq_num }}
+{%-                                      endif %}
+{%-                                     if to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router is defined %}
+##### Number of Links: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.num_of_links }}
+{%-                                         for link in to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.links %}
+##### Link: {{ link }}
+###### Link ID: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.links[link].link_id }}
+###### Link Data: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.links[link].link_data }}
+###### Type: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.links[link].type }}
+{%-                                             if to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.summary is defined %}
+###### Summary Mask: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.summary.network_mask }}
+{%-                                             endif %}
+{%-                                             for topology in to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.links[link].topologies %}
+###### Topology:{{ topology }}
+###### Metric: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].database.lsa_types[lsa_type].lsas[lsa].ospfv2.body.router.links[link].topologies[topology].metric }}
+{%-                                             endfor %}
+{%-                                         endfor %}
+{%-                                     endif %}
+{%-                                 endfor %}
+{%-                             endfor %}
+{%-                             for interface in to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].interfaces %}
+#### Interface: {{ interface }}
+##### Interface Type: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].interface_type }}
+##### Enabled: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].enable }}
+{%-                                 if to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].passive is defined %}
+##### Passive: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].passive }}
+{%-                                 endif %}
+##### Cost: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].cost }}
+##### BFD Enabled: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].bfd.enable }}
+##### State: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].state }}
+##### Dead Interval: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].dead_interval | default ("N/A") }}
+##### DR IP Address: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].dr_ip_addr | default ("N/A") }}
+##### DR Router ID: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].dr_router_id | default ("N/A") }}
+##### Hello Interval: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].hello_interval | default ("N/A") }}
+##### Hello Timer: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].hello_timer | default ("N/A") }}
+##### Priority: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].priority | default ("N/A") }}
+##### Retransmit Interval: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].retransmit_interval | default ("N/A") }}
+##### Transmit Delay: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].transmit_delay | default ("N/A") }}
+{%-                                 if to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors is defined %}
+{%-                                     for neighbor in to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors %}
+##### Neighbor: {{ neighbor }}
+###### Address: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].address }}
+###### BDR IP Address: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].bdr_ip_addr }}
+###### Dead Timer: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].dead_timer }}
+###### DR IP Address: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].dr_ip_addr }}
+###### Router ID: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].neighbor_router_id }}
+###### State: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].state }}
+###### Events: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].statistics.nbr_event_count }}
+{%-                                          if to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].nbr_retrans_qlen is defined %}
+###### Retransmission Queue: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].nbr_retrans_qlen.nbr_event_count }}
+{%-                                          endif %}
+{%-                                     endfor %}
+{%-                                endif %}
+{%-                             endfor %}
+{%-                         endfor %}
+{%-                     endfor %}
+{%-                 endfor %}
+{%-             endfor %}
+{%-         else %}
+{%-             for address_family in to_parse_ospf[vrf].address_family %}
+{%-                 for instance in to_parse_ospf[vrf].address_family[address_family].instance %}
+{%-                     if 'v4' in address_family %}
+## IPv4 OSPF VRF: {{ vrf }} Instance: {{ instance }}
+{%-                     else %}
+## IPv6 OSPF VRF: {{ vrf }} Instance: {{ instance }}
+{%-                      endif %}
+{%-                     for area in to_parse_ospf[vrf].address_family[address_family].instance[instance].areas %}
+### MPLS Auto Config: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].mpls.te.enable }}
+### Area: {{ area }}
+{%-                         for interface in to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].interfaces %}
+#### Interface: {{ interface }}
+##### Cost: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].cost }}
+##### BFD Enabled: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].bfd.enable }}
+##### State: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].state }}
+##### Dead Interval: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].dead_interval | default ("N/A") }}
+##### DR IP Address: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].dr_ip_addr | default ("N/A") }}
+##### DR Router ID: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].dr_router_id | default ("N/A") }}
+##### Hello Interval: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].hello_interval | default ("N/A") }}
+##### Hello Timer: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].hello_timer | default ("N/A") }}
+##### Priority: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].priority | default ("N/A") }}
+##### Retransmit Interval: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].retransmit_interval | default ("N/A") }}
+##### Transmit Delay: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].transmit_delay | default ("N/A") }}
+{%-                             if to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors is defined %}
+{%-                                  for neighbor in to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors %}
+##### Neighbor: {{ neighbor }}
+###### Address: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].address }}
+###### BDR IP Address: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].bdr_ip_addr }}
+###### Dead Timer: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].dead_timer }}
+###### DR IP Address: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].dr_ip_addr }}
+###### Router ID: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].neighbor_router_id }}
+###### State: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].state }}
+###### Events: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].statistics.nbr_event_count }}
+{%-                                     if to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].nbr_retrans_qlen is defined %}
+###### Retransmission Queue: {{ to_parse_ospf[vrf].address_family[address_family].instance[instance].areas[area].interfaces[interface].neighbors[neighbor].nbr_retrans_qlen.nbr_event_count }}
+{%-                                     endif %}
+{%-                                 endfor %}
+{%-                             endif %}
+{%-                         endfor %}
+{%-                     endfor %}
+{%-                 endfor %}
+{%-             endfor %}
+{%-         endif %}
+{%-     endfor %}
+{% endif %}
 {#- NEIGHBORNG #}
 {#- CDP NEIGHBORING #}
 ## neighbors
@@ -317,14 +469,14 @@
 {%-     for port in sh_parse_lldp_detail['interfaces'][int].port_id %}
 {%-       for neighbor in sh_parse_lldp_detail['interfaces'][int].port_id[port].neighbors %}
 #### {{neighbor}}
-##### **Local Port**:{{port}}
-##### **Remote Port**:{{int}}
-{%-         if sh_parse_lldp_detail['interfaces'][int].port_id[port].neighbors[neighbor].capabilities is defined%}
+##### **Local Port**: {{port}}
+##### **Remote Port**: {{int}}
+{%-         if sh_parse_lldp_detail['interfaces'][int].port_id[port].neighbors[neighbor].capabilities is defined %}
 ##### **Capabilities**
 {%-           for item in sh_parse_lldp_detail['interfaces'][int].port_id[port].neighbors[neighbor].capabilities %}
 ###### {{item}}
 {%-           endfor %}
-{%-         endif%}
+{%-         endif %}
 {%-       endfor %}
 {%-     endfor %}
 {%-   endfor %}
@@ -354,6 +506,15 @@
 {%-     endfor %}
 {%-   endfor %}
 {%- endfor %}
+{#- SHOW LICENSE #}
+{%- if sh_license_parsed.license_usage is defined %}
+## Smart Licensing
+{%-   for license in sh_license_parsed.license_usage %}
+### {{license}}
+#### {{sh_license_parsed.license_usage[license].count}}
+#### {{sh_license_parsed.license_usage[license].status}}
+{%-   endfor%}
+{%- endif%}
 {#- SHOW INTERFACES #}
 ## Interfaces
 ### Key
@@ -362,8 +523,8 @@
 ##### Operational Status
 ##### Last Input
 ##### Last Output
-### Port-Channels
 {%- if  device_os != 'nxos'  %}
+### Port-Channels
 {%-   for int in sh_int_parsed %}
 {%-     if 'Port-channel' in int %}
 #### {{int}}
@@ -406,12 +567,14 @@
 ### Ethernet
 {%-   for int in sh_int_parsed %}
 {%-     if 'Ethernet' in int %}
-{%-       if 'Gigabit' not in int%}
+{%-       if 'Gigabit' not in int %}
+{%-         if 'Fast' not in int %}
 #### {{int}}
 ##### {{sh_int_parsed[int].phys_address}}
 ##### Enabled: {{sh_int_parsed[int].enabled}}
 ##### {{sh_int_parsed[int].last_input}}
 ##### {{sh_int_parsed[int].last_output}}
+{%-           endif %}
 {%-         endif %}
 {%-       endif %}
 {%-     endfor %}
@@ -432,11 +595,13 @@
 {%-         if '2.5' not in int%}
 {%-           if 'Twenty' not in int%}
 {%-             if 'Forty' not in int%}
+{%-               if 'Two' not in int%}
 #### {{int}}
 ##### {{sh_int_parsed[int].phys_address}}
 ##### Enabled: {{sh_int_parsed[int].enabled}}
 ##### {{sh_int_parsed[int].last_input}}
 ##### {{sh_int_parsed[int].last_output}}
+{%-               endif %}
 {%-             endif %}
 {%-           endif %}
 {%-         endif %}
@@ -484,32 +649,33 @@
 {%-     endif %}
 {%-   endfor %}
 {%- endif %}
+{%  if to_parse_hsrp != 'Not enabled'%}
 ## HSRP
-{%- for vlan in to_parse_hsrp %}
-{%-     for address_family in to_parse_hsrp[vlan].address_family %}
-{%-         for version in to_parse_hsrp[vlan].address_family[address_family].version %}
-{%-             if 'v4' in address_family %}
+{%-     for vlan in to_parse_hsrp %}
+{%-         for address_family in to_parse_hsrp[vlan].address_family %}
+{%-             for version in to_parse_hsrp[vlan].address_family[address_family].version %}
+{%-                 if 'v4' in address_family %}
 ### {{ vlan }} - ipv4 HSRP V:{{ version }}
-{%-             else %}
+{%-                 else %}
 ### {{ vlan }} - ipv6 HSRP V:{{ version }}
-{%              endif %}
-{%-             for group in to_parse_hsrp[vlan].address_family[address_family].version[version].groups %}
+{%                  endif %}
+{%-                 for group in to_parse_hsrp[vlan].address_family[address_family].version[version].groups %}
 #### Use BIA: {{ to_parse_hsrp[vlan].use_bia }}
 #### Group: {{ group }}
 ##### Active Router: {{ to_parse_hsrp[vlan].address_family[address_family].version[version].groups[group].active_router }}
-{%                  if to_parse_hsrp[vlan].address_family[address_family].version[version].groups[group].active_ip_address is defined %}
+{%                      if to_parse_hsrp[vlan].address_family[address_family].version[version].groups[group].active_ip_address is defined %}
 ##### Active IP Address: {{ to_parse_hsrp[vlan].address_family[address_family].version[version].groups[group].active_ip_address }}
-{%-                 endif %}
+{%-                     endif %}
 ##### Active Router: {{ to_parse_hsrp[vlan].address_family[address_family].version[version].groups[group].active_router }}
 ##### Authetication: {{ to_parse_hsrp[vlan].address_family[address_family].version[version].groups[group].authentication }}
 ##### Router State: {{ to_parse_hsrp[vlan].address_family[address_family].version[version].groups[group].hsrp_router_state }}
-{%-                 if 'v4' in address_family %}
+{%-                     if 'v4' in address_family %}
 ##### IP Address: {{ to_parse_hsrp[vlan].address_family[address_family].version[version].groups[group].primary_ipv4_address.address }}
 ##### Learn Virtual IP: {{ to_parse_hsrp[vlan].address_family[address_family].version[version].groups[group].primary_ipv4_address.virtual_ip_learn }}
-{%-                 else %}
+{%-                     else %}
 ##### IP Address: {{ to_parse_hsrp[vlan].address_family[address_family].version[version].groups[group].primary_ipv6_address.address }}
 ##### Learn Virtual IP: {{ to_parse_hsrp[vlan].address_family[address_family].version[version].groups[group].primary_ipv6_address.virtual_ip_learn }}
-{%-                 endif %}
+{%-                     endif %}
 ##### Priority: {{ to_parse_hsrp[vlan].address_family[address_family].version[version].groups[group].priority }}
 ##### Session Name: {{ to_parse_hsrp[vlan].address_family[address_family].version[version].groups[group].session_name }}
 ##### Standby IP Address: {{ to_parse_hsrp[vlan].address_family[address_family].version[version].groups[group].standby_ip_address }}
@@ -520,7 +686,8 @@
 ###### Hold Seconds: {{ to_parse_hsrp[vlan].address_family[address_family].version[version].groups[group].timers.hold_sec }}
 ###### Hello MSec Flag: {{ to_parse_hsrp[vlan].address_family[address_family].version[version].groups[group].timers.hello_msec_flag }}
 ###### Hold MSec Flag: {{ to_parse_hsrp[vlan].address_family[address_family].version[version].groups[group].timers.hold_msec_flag }}
+{%-                 endfor %}
 {%-             endfor %}
 {%-         endfor %}
 {%-     endfor %}
-{%- endfor %}
+{%- endif %}

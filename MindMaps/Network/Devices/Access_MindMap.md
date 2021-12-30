@@ -136,6 +136,13 @@
 ##### age: -
 ##### Link Layer Address: 0008.e3ff.fe50
 ##### protocol: Internet
+## Smart Licensing
+### C9300-48 Network Advan...
+#### 1
+#### IN USE
+### C9300-48 DNA Advantage
+#### 1
+#### IN USE
 ## Interfaces
 ### Key
 #### interface
