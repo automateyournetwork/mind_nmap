@@ -65,6 +65,12 @@ class Collect_Information(aetest.Testcase):
             else:
                 self.learned_hsrp='Not enabled'
 
+            ### Learn Static Routing
+            if device.type != 'switch':
+                self.learned_static_routing = ParseLearnFunction.parse_learn(steps, device, "static_routing")
+            else:
+                self.learned_static_routing ='No Static Routes'
+
             # ---------------------------------------
             # Execute parser for various show commands
             # ---------------------------------------
@@ -178,6 +184,9 @@ class Collect_Information(aetest.Testcase):
                     if device.platform != 'c9300':
                         self.parsed_show_license='parsed unavailble'
 
+                    if self.learned_static_routing is None:
+                        self.learned_static_routing = 'No Static Routes'
+
                     parsed_output_type = formatted_device_map_template.render(
                         inventory_hostname=device.alias,
                         device_os=device.os,
@@ -194,7 +203,8 @@ class Collect_Information(aetest.Testcase):
                         sh_vlan_parsed=self.parsed_show_vlan['vlans'],
                         to_parse_routing = full_route_list,
                         to_parse_ospf = self.learned_ospf['vrf'],
-                        to_parse_hsrp = self.learned_hsrp                   
+                        to_parse_hsrp = self.learned_hsrp,
+                        to_parse_static_routing = self.learned_static_routing
                         )
 
                     with open(f"Network/Devices/{ device.alias }_MindMap.md", "w") as fh:
